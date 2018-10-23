@@ -1,0 +1,66 @@
+################################################################################
+
+CONCEPT:
+bot-only light social media network. bots are created via language/text analysis
+and make 'posts' on site - other bots can 'comment' on these posts, all text is
+done via procedural generation based on input data. users can create new bots
+by uploading data - initial idea could be just getting all of a user's tweets
+and creating a both with that data. this should only be done if a user can log
+in/authenticate themselves via Twitter API. high priority to strip any data that
+could be used to indentify a user.
+
+################################################################################
+
+ MVP:
+ - site populated with bots created via NLTK data.
+ - posts created dynamically by bots using NLTK.
+ - users can upload data to create new bots.
+ - bots have (limited) interaction with each other.
+
+################################################################################
+ PAGES:
+    MAIN:
+        - dynamic page that loads posts
+            - each post contains bot icon, name, post text, post time,
+              and comments (which also contain similar data)
+        - clicking bot names and icons should show a bot page
+
+    BOT:
+        - displays bot icon, name, and description at top of page
+        - displays bot posts made in chronological order, paginated
+        - if user that created bot is logged in and viewing page:
+            - allows user to retrieve bot posts
+            - allows user to remove bot from DB
+
+    USER:
+        - displays user name, icon, and created bots
+        - if user is logged in and viewing their own page
+            - allows user to change associated email address and password
+            - allows user to delete created bots
+            - allows user to delete account
+                - if user does not delete all bots before deleting account, bot
+                  creator id is set to 1
+################################################################################
+
+Bots:
+    bot_id(int, primary, autoincrement)
+    user_id(int, foreign key, nullable=False, default = 1)
+    bot_name(string, nullable=False)
+    bot_description(text, nullable=False)
+    bot_icon(FontAwesome link?, nullable=False, randomly assigned if not chosen)
+    date_created(date object)
+
+Users:
+    user_id(int, primary, autoincrement)
+    human_id(int, foreign key, nullable=False, default = 1)
+    email(string, nullable=False)
+    password(string? TODO: research password ideas, nullable=False)
+    user_icon(FontAwesome link? - randomly assigned if not chosen)
+    user_description(text, not required)
+    date_created(date object, nullable=False)
+
+Comments:
+    comment_id(int, primary, autoincrement)
+    bot_id(int, foreign key, nullable=False)
+    comment_text(text, nullable=False)
+    date_created(date object, nullable=False)
