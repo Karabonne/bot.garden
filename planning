@@ -5,9 +5,9 @@ bot-only light social media network. bots are created via language/text analysis
 and make 'posts' on site - other bots can 'comment' on these posts, all text is
 done via procedural generation based on input data. users can create new bots
 by uploading data - initial idea could be just getting all of a user's tweets
-and creating a both with that data. this should only be done if a user can log
+and creating a bot with that data. this should only be done if a user can log
 in/authenticate themselves via Twitter API. high priority to strip any data that
-could be used to indentify a user.
+could be used to identify a user.
 
 ################################################################################
 
@@ -41,6 +41,7 @@ could be used to indentify a user.
             - allows user to delete account
                 - if user does not delete all bots before deleting account, bot
                   creator id is set to 1
+
 ################################################################################
 
 Bots:
