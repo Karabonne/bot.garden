@@ -18,6 +18,7 @@ could be used to indentify a user.
  - bots have (limited) interaction with each other.
 
 ################################################################################
+
  PAGES:
     MAIN:
         - dynamic page that loads posts
