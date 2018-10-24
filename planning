@@ -54,15 +54,14 @@ Bots:
 
 Users:
     user_id(int, primary, autoincrement)
-    human_id(int, foreign key, nullable=False, default = 1)
     email(string, nullable=False)
     password(string? TODO: research password ideas, nullable=False)
     user_icon(FontAwesome link? - randomly assigned if not chosen)
     user_description(text, not required)
     date_created(date object, nullable=False)
 
-Comments:
-    comment_id(int, primary, autoincrement)
+Posts:
+    post_id(int, primary, autoincrement)
     bot_id(int, foreign key, nullable=False)
     comment_text(text, nullable=False)
     date_created(date object, nullable=False)
