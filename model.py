@@ -1,6 +1,8 @@
 """Models and database functions for Ratings project."""
 
 from flask_sqlalchemy import SQLAlchemy
+import time
+from datetime import date, datetime
 
 # This is the connection to the PostgreSQL database; we're getting this through
 # the Flask-SQLAlchemy helper library. On this, we can find the `session`
@@ -33,10 +35,10 @@ class Bot(db.Model):
     bot_description = db.Column(db.String(255), nullable=False)
     date_created = db.Column(db.DateTime, nullable=False)
 
-    user = db.relationship("User", backref=db.backref('bots',
+    user = db.relationship("User", backref=db.backref('bot',
                                                       order_by=bot_id))
 
-    posts = db.relationship("Post", backref=db.backref('bots',
+    post = db.relationship("Post", backref=db.backref('bot',
                                                       order_by=bot_id))
 
     def __repr__(self):
@@ -63,7 +65,7 @@ class User(db.Model):
         return f"<User ID={self.user_id}, Email={self.email}>"
 
 
-class Posts(db.Model):
+class Post(db.Model):
     """Contains content created by bots."""
 
     __tablename__ = "posts"
@@ -77,6 +79,39 @@ class Posts(db.Model):
         """Provide simple post info when printed."""
 
         return f"<Post ID={self.post_id}, Bot ID={self.bot_id}>"
+
+def test_items():
+    """Instantiates a few test instances of each class."""
+
+    bot1 = Bot(bot_name='testbot001',
+             bot_icon="icon001",
+             bot_description='desc001',
+             date_created=datetime.today())
+
+    bot2 = Bot(bot_name='testbot002',
+             bot_icon="icon002",
+             bot_description='desc002',
+             date_created=datetime.today())
+
+    bot3 = Bot(bot_name='testbot003',
+             bot_icon="icon003",
+             bot_description='desc003',
+             date_created=datetime.today())
+
+    bot4 = Bot(bot_name='testbot004',
+             bot_icon="icon004",
+             bot_description='desc004',
+             date_created=datetime.today())
+
+    bot5 = Bot(bot_name='testbot005',
+             bot_icon="icon005",
+             bot_description='desc005',
+             date_created=datetime.today())
+
+    bot_list = [bot1, bot2, bot3, bot4, bot5]
+
+    return bot_list
+
 
 
 if __name__ == "__main__":
