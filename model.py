@@ -3,6 +3,8 @@
 from flask_sqlalchemy import SQLAlchemy
 import time
 from datetime import date, datetime
+import request
+import markov
 
 # This is the connection to the PostgreSQL database; we're getting this through
 # the Flask-SQLAlchemy helper library. On this, we can find the `session`
@@ -80,8 +82,16 @@ class Post(db.Model):
 
         return f"<Post ID={self.post_id}, Bot ID={self.bot_id}>"
 
+
+def json_convert_tweets():
+    """Strips out tweet text from JSON data returned via the Twitter API."""
+
+
+    pass
+
+
 def test_items():
-    """Instantiates a few test instances of each class."""
+    """Creates test objects for each class, returns them in a list."""
 
     bot1 = Bot(bot_name='testbot001',
              bot_icon="icon001",

@@ -7,10 +7,12 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 from model import Bot, User, Post, connect_to_db, db
 
+import json
+
 app = Flask(__name__)
 
 # Required to use Flask sessions and the debug toolbar
-app.secret_key = "ABC"
+app.secret_key = "ABC123456hackbright"
 
 # Normally, if you use an undefined variable in Jinja2, it fails
 # silently. This is horrible. Fix this so that, instead, it raises an
@@ -19,11 +21,28 @@ app.jinja_env.undefined = StrictUndefined
 
 
 @app.route('/')
-def index():
-    """Homepage."""
+def show_index():
+    """Main page - shows a stream of bot posts."""
 
-    return render_template("homepage.html")
+    bot_entries = Bot.query.all()
 
+    return render_template("homepage.html", bots=bot_entries)
+
+
+@app.route('/user/<user_id>')
+def show_user_page():
+    """TODO: Shows a user info page, including list of user's bots."""
+
+
+    pass
+
+
+@app.route('/bot/<bot_id>')
+def show_bot_page():
+    """TODO: Shows a bot info page, including posts and creator."""
+
+
+    pass
 
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the

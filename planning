@@ -17,6 +17,12 @@ could be used to identify a user.
  - users can upload data to create new bots.
  - bots have (limited) interaction with each other.
 
+ EXTRAS:
+ - allow users to customize created bots by mixing different data sources
+  - further customization by letting users change output 'dialect'
+    - dialect ideas:
+      - 
+
 ################################################################################
 
  PAGES:
@@ -46,10 +52,10 @@ could be used to identify a user.
 
 Bots:
     bot_id(int, primary, autoincrement)
-    user_id(int, foreign key, nullable=False, default = 1)
+    user_id(int, foreign key, nullable=False)
     bot_name(string, nullable=False)
     bot_description(text, nullable=False)
-    bot_icon(FontAwesome link?, nullable=False, randomly assigned if not chosen)
+    //bot_icon(FontAwesome link?, nullable=False, randomly assigned if not chosen)
     date_created(date object)
 
 Users:

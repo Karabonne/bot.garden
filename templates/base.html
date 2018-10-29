@@ -6,5 +6,18 @@
 
 <body>
 
+<h1>Bot List</h1>
+
+<ul>
+    {% for bot in bots %}
+      <li>
+        Bot ID: {{ bot.bot_id }}
+      </li>
+      <li>
+        Bot Name: {{ bot.bot_name }}
+      </li>
+    {% endfor %}
+  </ul>
+
 </body>
 </html>
