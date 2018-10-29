@@ -5,6 +5,7 @@ import time
 from datetime import date, datetime
 import request
 import markov
+from config import *
 
 # This is the connection to the PostgreSQL database; we're getting this through
 # the Flask-SQLAlchemy helper library. On this, we can find the `session`

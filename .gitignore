@@ -1,3 +1,4 @@
 env/
 *pyc*
 testfiles/
+config.py

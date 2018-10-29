@@ -43,6 +43,8 @@ def make_chains(text_string):
     words = text_string.split()
     chains = {}
 
+    chain_length = int(input("Input the number of words to use in your key: "))
+
     for i in range(len(words)-1):
         if i < (len(words) - chain_length):
             new_key = tuple(words[i:(i+chain_length)])
@@ -59,6 +61,7 @@ def make_text(chains):
     key = choice(key_list)
     puctuation = ['!', '?', '.']
 
+    file_length = int(input("Enter the number of sentences to generate: "))
 
     for n in range(file_length):
 
@@ -73,16 +76,3 @@ def make_text(chains):
 
 
     return " ".join(words)
-
-
-chain_length = int(input("Input the number of words to use in your key: "))
-file_length = int(input("Enter the number of sentences to generate: "))
-
-# Open the file and turn it into one long string
-input_text = process_files(*sys.argv[1:])
-
-# Get a Markov chain
-chains = make_chains(input_text)
-
-# Produce random text
-random_text = print(make_text(chains))
