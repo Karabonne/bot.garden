@@ -15,8 +15,8 @@ def get_tweets(username):
 
     #grabs a set of user tweets
     tweets = t.statuses.user_timeline(screen_name=username,
-                                          include_rts=false,
-                                          exclude_replies=true)
+                                          include_rts="false",
+                                          exclude_replies="true")
 
     text_list = [item['text'] for item in tweets]
 
