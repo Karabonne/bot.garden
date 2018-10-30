@@ -3,3 +3,4 @@ env/
 testfiles/
 config.py
 planning
+testing*

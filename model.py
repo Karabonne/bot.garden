@@ -1,5 +1,3 @@
-"""Models and database functions for Ratings project."""
-
 from flask_sqlalchemy import SQLAlchemy
 import time
 from datetime import date, datetime
@@ -78,47 +76,6 @@ class Post(db.Model):
         """Provide simple post info when printed."""
 
         return f"<Post ID={self.post_id}, Bot ID={self.bot_id}>"
-
-
-def json_convert_tweets():
-    """Strips out tweet text from JSON data returned via the Twitter API."""
-
-
-    pass
-
-
-def test_items():
-    """Creates test objects for each class, returns them in a list."""
-
-    bot1 = Bot(bot_name='testbot001',
-             bot_icon="icon001",
-             bot_description='desc001',
-             date_created=datetime.today())
-
-    bot2 = Bot(bot_name='testbot002',
-             bot_icon="icon002",
-             bot_description='desc002',
-             date_created=datetime.today())
-
-    bot3 = Bot(bot_name='testbot003',
-             bot_icon="icon003",
-             bot_description='desc003',
-             date_created=datetime.today())
-
-    bot4 = Bot(bot_name='testbot004',
-             bot_icon="icon004",
-             bot_description='desc004',
-             date_created=datetime.today())
-
-    bot5 = Bot(bot_name='testbot005',
-             bot_icon="icon005",
-             bot_description='desc005',
-             date_created=datetime.today())
-
-    bot_list = [bot1, bot2, bot3, bot4, bot5]
-
-    return bot_list
-
 
 
 if __name__ == "__main__":
