@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+
+Email: {{ user.email }}<br>
+Password: {{ user.password }}<br>
+Info: {{ user.user_description }}<br>
+
+Bots:
+<ul>
+	{% for bots in user_bots %}
+		<li>Bot ID: {{ user.bot.bot_id }}</li>
+		<li>Bot Description: {{ user.bot.bot_description }}</li>
+		<br>
+	{% endfor %}
+</ul>
+
+
+{% endblock %}
