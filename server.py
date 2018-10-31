@@ -68,7 +68,7 @@ def show_reg_form():
 
 @app.route("/register", methods=["POST"])
 def process_reg():
-    """Processes registration and adds user to DB."""
+    """Adds user to DB."""
 
     new_email = request.form.get('email')
     pswd = request.form.get('password')
