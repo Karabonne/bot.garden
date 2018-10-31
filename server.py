@@ -92,6 +92,38 @@ def process_reg():
     return redirect("/")
 
 
+@app.route("/login", methods=["POST"])
+def login_user():
+    """Adds user information to session."""
+
+    login_email = request.form.get('email')
+    pswd = request.form.get('password')
+
+    user = User.query.filter(User.email == login_email).first()
+
+
+    if user:
+        if user.password == pswd:
+            # add user info to Flask session
+            session['user_id'] = user.user_id
+            session['email'] = user.email
+            flash('Successfully logged in!')
+            return redirect("/")
+        else:
+            flash('Invalid password!')
+    else:
+        flash('User not found!')
+
+    return redirect("/")
+
+
+@app.route("/logout")
+def log_out():
+    """Logs user out of session."""
+
+    session.clear()
+
+    return redirect("/")
 
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the
