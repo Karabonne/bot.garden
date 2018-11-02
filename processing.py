@@ -1,5 +1,4 @@
-import markov
-from twitter import *
+from twitter import Twitter, OAuth
 from config import *
 
 
@@ -26,7 +25,7 @@ def get_tweets(username):
                                           trim_user="true",
                                           include_rts="false",
                                           exclude_replies="false",
-                                          count=30)
+                                          count=200)
     requests += 1
     text_list = [item['text'] for item in tweets]
 
@@ -45,7 +44,7 @@ def get_tweets(username):
                                   trim_user="true",
                                   include_rts="false",
                                   exclude_replies="false",
-                                  count=30,
+                                  count=200,
                                   max_id=tweets[-1]['id'])
 
             for item in tweets:
