@@ -25,7 +25,7 @@ def get_tweets(username):
                                           trim_user="true",
                                           include_rts="false",
                                           exclude_replies="false",
-                                          count=200)
+                                          count=1200)
     requests += 1
     text_list = [item['text'] for item in tweets]
 
@@ -33,7 +33,7 @@ def get_tweets(username):
     # request, and stops either after 5 requests or when the API doesn't
     # return any more data
 
-    while len(tweets) != 0 and requests < 6:
+    while len(tweets) > 1 and requests < 30:
 
         try:
             print("length = " + str(len(tweets)))

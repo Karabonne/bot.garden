@@ -27,6 +27,7 @@ class Bot(db.Model):
 
     bot_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
+    source = db.Column(db.Text, nullable=False)
     bot_name = db.Column(db.String(64), nullable=False)
     bot_icon = db.Column(db.String(255), nullable=False)
     bot_description = db.Column(db.String(255), nullable=False)

@@ -59,7 +59,7 @@ def make_text(chains):
     words = []
     key_list = list(chains)
     key = choice(key_list)
-    puctuation = ['!', '?', '.']
+    punctuation = ['!', '?', '.']
 
     file_length = int(input("Enter the number of sentences to generate: "))
 
@@ -68,7 +68,7 @@ def make_text(chains):
         while key[0].istitle() is False:
             key = choice(key_list)
 
-        while key in chains and key[-1][-1] not in puctuation:
+        while key in chains and key[-1][-1] not in punctuation:
             value = choice(chains[key])
             link = " ".join(key) + " " + value
             words.append(link)

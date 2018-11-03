@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% if 'user_id' in session %}
+  <form action="/create" method="POST">
+    <p>Build-a-bot!</p>
+    <p>This builds a bot from a <em>current</em> sampling of tweets.
+      Currently, this will read the last 3200 tweets from the account.
+    </p>
+  	<p>
+  		<label for="name">Name </label>
+  		<input type="text" name="name" id="name" required>
+  	</p>
+  	<p>
+  		<label for="description">Short description </label>
+  		<input type="text" name="description" id="description" required>
+  	</p>
+    <p>
+  		<label for="description">Twitter </label>
+  		<input type="text" name="twitter" id="twitter" required>
+  	</p>
+  		<input type="submit">
+  </form>
+  {% else %}
+  <h2>Please <a href="/login">log in</a> to create a bot.</h2>
+{% endif %}
+
+{% endblock %}
