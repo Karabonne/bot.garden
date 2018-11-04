@@ -5,7 +5,7 @@ from jinja2 import StrictUndefined
 from flask import Flask, render_template, redirect, request, flash, session
 from flask_debugtoolbar import DebugToolbarExtension
 from datetime import date, datetime
-from model import Bot, User, Post, connect_to_db
+from model import Bot, User, Post, connect_to_db, db
 
 import json
 
@@ -128,33 +128,30 @@ def log_out():
 # 3. BOT CREATION AND LOGIC SECTION -----------------------
 
 @app.route("/create", methods=["GET"])
-def show_reg_form():
+def show_bot_form():
     """Displays a bot creation form."""
 
-    return render_template("registration.html")
+    return render_template("create.html")
 
 
 @app.route("/create", methods=["POST"])
-def process_reg():
+def create_bot():
     """Adds bot to DB."""
 
-    bot_name = request.form.get('email')
+    name = request.form.get('email')
     desc = request.form.get('description')
+    data_source = request.form.get('twitter')
 
-    # Check for user email in db
-    db_email = User.query.filter(User.email == new_email).first()
-
-    if not db_email:
-        user = User(email=new_email,
-                 password=pswd,
-                 user_icon="icon001",
-                 user_description=desc,
+    bot = Bot(bot_name=bot_name,
+                 bot_description=desc,
+                 bot_icon='icon001',
+                 source=data_source,
                  date_created=datetime.today())
-        db.session.add(user)
-        db.session.commit()
-        flash('Registration successful!')
-    else:
-        flash('Email address already exists - try again?')
+    db.session.add(user)
+    db.session.commit()
+    
+    flash('It lives....it lives!')
+    
 
     return redirect("/")
 

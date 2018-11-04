@@ -6,7 +6,7 @@
 
 <p>
 {% if 'user_id' in session %}
-  <h1><a href="/user/{{ session['user_id'] }}">{{ session['email'] }}</a></h1>
+  <h2><a href="/user/{{ session['user_id'] }}">{{ session['email'] }}</a></h2>
 	  <form action="/logout" method="GET">
 	  	<input type="submit" value="Log Out">
 	  </form>
