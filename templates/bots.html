@@ -6,12 +6,17 @@
 
 <ul>
     {% for bot in bots %}
+      <span class="fas fa-{{ bot.bot_icon }}"></span>
       <li>
         Bot ID: {{ bot.bot_id }}
       </li>
       <li>
         Bot Name: {{ bot.bot_name }}
       </li>
+      <li>
+        Bot Creator: {{ bot.user.email }}
+      </li>
+      <br>
     {% endfor %}
   </ul>
 

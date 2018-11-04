@@ -25,7 +25,7 @@ def get_tweets(username):
                                           trim_user="true",
                                           include_rts="false",
                                           exclude_replies="false",
-                                          count=1200)
+                                          count=200)
     requests += 1
     text_list = [item['text'] for item in tweets]
 

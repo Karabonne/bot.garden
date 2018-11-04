@@ -1,15 +1,17 @@
 <!doctype html>
 <html>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 <head>
   <title>Project Test Page</title>
 </head>
 
 <p>
 {% if 'user_id' in session %}
-  <h2><a href="/user/{{ session['user_id'] }}">{{ session['email'] }}</a></h2>
+  <h3><a href="/user/{{ session['user_id'] }}">{{ session['email'] }}</a></h3>
 	  <form action="/logout" method="GET">
 	  	<input type="submit" value="Log Out">
 	  </form>
+      <a href = "/create">Summon a bot!</a>
   {% else %}
 	    <form action="/login" method="POST">
 		<p>
@@ -21,6 +23,7 @@
 			<input type="password" name="password" id="password" required>
 		</p>
 			<input type="submit" value="Log In">
+            or <a href="/register">register</a>
 		</form>
 {% endif %}
 </p>
@@ -35,7 +38,6 @@
     </ul>
   {% endif %}
 {% endwith %}
-
 
 {% block content %}
 {% endblock %}

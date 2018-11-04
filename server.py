@@ -19,11 +19,11 @@ app.jinja_env.undefined = StrictUndefined
 
 # 1. INFO DISPLAY SECTION ---------------------------------
 
-@app.route('/')
-def show_index():
-    """TODO: Main page - shows a stream of bot posts."""
+# @app.route('/')
+# def show_index():
+#     """TODO: Main page - shows a stream of bot posts."""
 
-    return render_template("homepage.html")
+#     return render_template("homepage.html")
 
 
 @app.route('/user/<user_id>')
@@ -138,16 +138,18 @@ def show_bot_form():
 def create_bot():
     """Adds bot to DB."""
 
-    name = request.form.get('email')
+    name = request.form.get('name')
     desc = request.form.get('description')
     data_source = request.form.get('twitter')
+    icon = request.form.get('icon')
 
-    bot = Bot(bot_name=bot_name,
-                 bot_description=desc,
-                 bot_icon='icon001',
-                 source=data_source,
-                 date_created=datetime.today())
-    db.session.add(user)
+    bot = Bot(bot_name=name,
+                user_id = session['user_id'],
+                bot_description=desc,
+                bot_icon=icon,
+                source=data_source,
+                date_created=datetime.today())
+    db.session.add(bot)
     db.session.commit()
     
     flash('It lives....it lives!')
