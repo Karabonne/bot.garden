@@ -23,7 +23,7 @@ def process_files(*args):
     return text
 
 
-def make_chains(text_string):
+def make_chains(text_string, chain_length):
     """Take input text as string; return dictionary of Markov chains.
     A chain will be a key that consists of a tuple of (word1, word2)
     and the value would be a list of the word(s) that follow those two
@@ -43,7 +43,7 @@ def make_chains(text_string):
     words = text_string.split()
     chains = {}
 
-    chain_length = int(input("Input the number of words to use in your key: "))
+    # chain_length = int(input("Input the number of words to use in your key: "))
 
     for i in range(len(words)-1):
         if i < (len(words) - chain_length):
@@ -53,7 +53,7 @@ def make_chains(text_string):
     return chains
 
 
-def make_text(chains):
+def make_text(chains, num_sents):
     """Return text from chains."""
 
     words = []
@@ -61,9 +61,9 @@ def make_text(chains):
     key = choice(key_list)
     punctuation = ['!', '?', '.']
 
-    file_length = int(input("Enter the number of sentences to generate: "))
+    # num_sents = int(input("Enter the number of sentences to generate: "))
 
-    for n in range(file_length):
+    for n in range(num_sents):
 
         while key[0].istitle() is False:
             key = choice(key_list)

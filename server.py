@@ -7,6 +7,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 from datetime import date, datetime
 from model import Bot, User, Post, Source, connect_to_db, db
 from processing import get_tweets
+from markov import make_chains, make_text
 
 import json
 
@@ -61,7 +62,9 @@ def show_bot_directory():
 
     return render_template("directory.html", bots=bot_entries)
 
+
 # 2. USER REGISTRATION AND LOGIN SECTION ------------------
+
 
 @app.route("/register", methods=["GET"])
 def show_reg_form():
@@ -130,7 +133,9 @@ def log_out():
 
     return redirect("/")
 
+
 # 3. BOT CREATION AND LOGIC SECTION -----------------------
+
 
 @app.route("/create", methods=["GET"])
 def show_bot_form():
@@ -150,11 +155,12 @@ def create_bot():
 
     tweets = ' '.join(get_tweets(data_source))
     source = Source(content_type='twitter',
+                    content_source=data_source,
                     content=tweets)
     
     db.session.add(source)
     db.session.commit()
-    
+
     bot = Bot(bot_name=name,
                 creator_id = session['user_id'],
                 bot_description=desc,
@@ -163,7 +169,6 @@ def create_bot():
                 date_created=datetime.today())
     
     db.session.add(bot)
-
     db.session.commit()
     
     flash('It lives....it lives!')
@@ -173,6 +178,27 @@ def create_bot():
 
 
 # 3. POST CREATION AND LOGIC SECTION -----------------------
+
+
+@app.route("/post", methods=["POST"])
+def create_post():
+    """Generates a new post from sources."""
+
+    bot_id = request.form.get('bot_id')
+    bot = Bot.query.filter(bot_id==bot_id).first()
+    text = make_text(make_chains(bot.source.content, 2), 1)
+
+    post = Post(bot_id=bot_id,
+                content=text,
+                date_created=datetime.today())
+
+    db.session.add(post)
+    db.session.commit()
+
+    return redirect("/bot/" + bot_id)
+
+
+
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the
     # point that we invoke the DebugToolbarExtension

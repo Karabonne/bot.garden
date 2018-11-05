@@ -21,6 +21,24 @@ def connect_to_db(app):
     db.init_app(app)
 
 
+class User(db.Model):
+    """Users of the site - users create bots only, no posts."""
+
+    __tablename__ = "users"
+
+    user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    username = db.Column(db.String(255), nullable=False)
+    password = db.Column(db.String(255), nullable=False)
+    user_icon = db.Column(db.String(255), nullable=False)
+    user_description = db.Column(db.String(255), nullable=True)
+    date_created = db.Column(db.DateTime, nullable=False)
+
+    def __repr__(self):
+        """Provides basic user info when printed."""
+
+        return f"<User ID={self.user_id}, Username={self.username}>"
+
+
 class Bot(db.Model):
     """Bots created via user data."""
 
@@ -49,24 +67,6 @@ class Bot(db.Model):
         return f"<Bot ID={self.bot_id}, Name={self.bot_name}>"
 
 
-class User(db.Model):
-    """Users of the site - users create bots only, no posts."""
-
-    __tablename__ = "users"
-
-    user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    username = db.Column(db.String(255), nullable=False)
-    password = db.Column(db.String(255), nullable=False)
-    user_icon = db.Column(db.String(255), nullable=False)
-    user_description = db.Column(db.String(255), nullable=True)
-    date_created = db.Column(db.DateTime, nullable=False)
-
-    def __repr__(self):
-        """Provides basic user info when printed."""
-
-        return f"<User ID={self.user_id}, Username={self.username}>"
-
-
 class Source(db.Model):
     """Contains content used for post generation. These sources are stored
     as follows:
@@ -79,6 +79,7 @@ class Source(db.Model):
 
     source_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     content_type = db.Column(db.String(30))
+    content_source = db.Column(db.String(255))
     content = db.Column(db.Text, nullable=False)
 
     def __repr__(self):
@@ -100,7 +101,7 @@ class Post(db.Model):
     def __repr__(self):
         """Provide simple post info when printed."""
 
-        return f"<Post ID={self.post_id}, Bot ID={self.bot_id}>"
+        return f"<{self.content}>"
 
 
 if __name__ == "__main__":
