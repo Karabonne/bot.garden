@@ -6,6 +6,7 @@ from flask import Flask, render_template, redirect, request, flash, session
 from flask_debugtoolbar import DebugToolbarExtension
 from datetime import date, datetime
 from model import Bot, User, Post, connect_to_db, db
+from processing import get_tweets
 
 import json
 
@@ -43,10 +44,13 @@ def show_bot_page(bot_id):
     """TODO: Shows a bot info page, including posts and creator."""
 
     bot = Bot.query.get(bot_id)
-    creator = Bot.query.filter_by(user_id)
+    creator = bot.user
     bot_posts = Post.query.filter_by(bot_id=bot_id).all()
 
-    pass
+    return render_template("bot.html",
+                            bot=bot,
+                            creator=creator,
+                            bot_posts=bot_posts)
 
 
 @app.route('/')
@@ -55,7 +59,7 @@ def show_bot_directory():
 
     bot_entries = Bot.query.all()
 
-    return render_template("bots.html", bots=bot_entries)
+    return render_template("directory.html", bots=bot_entries)
 
 # 2. USER REGISTRATION AND LOGIN SECTION ------------------
 
@@ -73,6 +77,7 @@ def process_reg():
     new_email = request.form.get('email')
     pswd = request.form.get('password')
     desc = request.form.get('description')
+    icon = request.form.get('icon')
 
     # Check for user email in db
     db_email = User.query.filter(User.email == new_email).first()
@@ -80,7 +85,7 @@ def process_reg():
     if not db_email:
         user = User(email=new_email,
                  password=pswd,
-                 user_icon="icon001",
+                 user_icon=icon,
                  user_description=desc,
                  date_created=datetime.today())
         db.session.add(user)
@@ -157,6 +162,8 @@ def create_bot():
 
     return redirect("/")
 
+
+# 3. POST CREATION AND LOGIC SECTION -----------------------
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the
     # point that we invoke the DebugToolbarExtension

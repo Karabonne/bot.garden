@@ -30,7 +30,7 @@ def get_tweets(username):
     text_list = [item['text'] for item in tweets]
 
     # this loop uses the last tweet id as the starting point for the next
-    # request, and stops either after 5 requests or when the API doesn't
+    # request, and stops either after 30 requests or when the API doesn't
     # return any more data
 
     while len(tweets) > 1 and requests < 30:

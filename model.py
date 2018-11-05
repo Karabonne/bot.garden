@@ -59,10 +59,27 @@ class User(db.Model):
     date_created = db.Column(db.DateTime, nullable=False)
 
     def __repr__(self):
-        """Provide basic user info when printed."""
+        """Provides basic user info when printed."""
 
         return f"<User ID={self.user_id}, Email={self.email}>"
 
+
+class Source(db.Model):
+    """Contains content used for post generation. These sources are stored
+    as follows:
+    source_id = autoincrementing index for rows
+    type = might be helpful in the future, but for now, most are 'twitter'
+    text = one large string of text. used for generating markov chains, 
+              chains can be generated from multiple sources via concatenation"""
+
+    source_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    content_type = db.Column(db.String(30))
+    content = db.Column(db.Text, nullable=False)
+
+    def __repr__(self):
+        """Provides content info when printed."""
+
+        return f"<Source ID={self.source_id}, type={self.content_type}, \n sample={self.content[:30]}...>"
 
 class Post(db.Model):
     """Contains content created by bots."""
