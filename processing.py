@@ -1,7 +1,6 @@
 from twitter import Twitter, OAuth
 from config import *
 
-
 # Initialize our twitter session
 t = Twitter(
     auth=OAuth(access_token, token_secret, api_key, api_secret))
@@ -10,8 +9,7 @@ def get_tweets(username):
     """
     Get tweets from a user, strip out all data except text, then
     create a list. Each item in the list is the text content of a single
-    tweet by the user. Retweets are excluded from this.
-    TODO: change tweet counts to max (200)"""
+    tweet by the user. Retweets are excluded from this."""
 
     # just a safeguard while testing, keeps API request limit low
     requests = 0

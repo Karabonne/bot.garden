@@ -5,7 +5,7 @@ from jinja2 import StrictUndefined
 from flask import Flask, render_template, redirect, request, flash, session
 from flask_debugtoolbar import DebugToolbarExtension
 from datetime import date, datetime
-from model import Bot, User, Post, connect_to_db, db
+from model import Bot, User, Post, Source, connect_to_db, db
 from processing import get_tweets
 
 import json
@@ -32,7 +32,7 @@ def show_user_page(user_id):
     """TODO: Shows a user info page, including list of user's bots."""
 
     user = User.query.get(user_id)
-    user_bots = Bot.query.filter_by(user_id=user_id).all()
+    user_bots = Bot.query.filter_by(creator_id=user_id).all()
 
     return render_template("user.html",
                               user=user,
@@ -74,16 +74,16 @@ def show_reg_form():
 def process_reg():
     """Adds user to DB."""
 
-    new_email = request.form.get('email')
+    new_username = request.form.get('username')
     pswd = request.form.get('password')
     desc = request.form.get('description')
     icon = request.form.get('icon')
 
-    # Check for user email in db
-    db_email = User.query.filter(User.email == new_email).first()
+    # Check for user username in db
+    db_username = User.query.filter(User.username == new_username).first()
 
-    if not db_email:
-        user = User(email=new_email,
+    if not db_username:
+        user = User(username=new_username,
                  password=pswd,
                  user_icon=icon,
                  user_description=desc,
@@ -92,7 +92,7 @@ def process_reg():
         db.session.commit()
         flash('Registration successful!')
     else:
-        flash('Email address already exists - try again?')
+        flash('username address already exists - try again?')
 
     return redirect("/")
 
@@ -101,17 +101,17 @@ def process_reg():
 def login_user():
     """Adds user information to session."""
 
-    login_email = request.form.get('email')
+    login_username = request.form.get('username')
     pswd = request.form.get('password')
 
-    user = User.query.filter(User.email == login_email).first()
+    user = User.query.filter(User.username == login_username).first()
 
 
     if user:
         if user.password == pswd:
             # add user info to Flask session
             session['user_id'] = user.user_id
-            session['email'] = user.email
+            session['username'] = user.username
             flash('Successfully logged in!')
             return redirect("/")
         else:
@@ -148,13 +148,22 @@ def create_bot():
     data_source = request.form.get('twitter')
     icon = request.form.get('icon')
 
+    tweets = ' '.join(get_tweets(data_source))
+    source = Source(content_type='twitter',
+                    content=tweets)
+    
+    db.session.add(source)
+    db.session.commit()
+    
     bot = Bot(bot_name=name,
-                user_id = session['user_id'],
+                creator_id = session['user_id'],
                 bot_description=desc,
                 bot_icon=icon,
-                source=data_source,
+                content_id=source.source_id,
                 date_created=datetime.today())
+    
     db.session.add(bot)
+
     db.session.commit()
     
     flash('It lives....it lives!')

@@ -27,8 +27,8 @@ class Bot(db.Model):
     __tablename__ = "bots"
 
     bot_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
-    source = db.Column(db.Text, nullable=False)
+    creator_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
+    content_id = db.Column(db.Integer, db.ForeignKey('sources.source_id'), nullable=False)
     bot_name = db.Column(db.String(64), nullable=False)
     bot_icon = db.Column(db.String(255), nullable=False)
     bot_description = db.Column(db.String(255), nullable=False)
@@ -38,6 +38,9 @@ class Bot(db.Model):
                                                       order_by=bot_id))
 
     post = db.relationship("Post", backref=db.backref('bot',
+                                                      order_by=bot_id))
+
+    source = db.relationship("Source", backref=db.backref('bot',
                                                       order_by=bot_id))
 
     def __repr__(self):
@@ -52,7 +55,7 @@ class User(db.Model):
     __tablename__ = "users"
 
     user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    email = db.Column(db.String(255), nullable=False)
+    username = db.Column(db.String(255), nullable=False)
     password = db.Column(db.String(255), nullable=False)
     user_icon = db.Column(db.String(255), nullable=False)
     user_description = db.Column(db.String(255), nullable=True)
@@ -61,7 +64,7 @@ class User(db.Model):
     def __repr__(self):
         """Provides basic user info when printed."""
 
-        return f"<User ID={self.user_id}, Email={self.email}>"
+        return f"<User ID={self.user_id}, Username={self.username}>"
 
 
 class Source(db.Model):
@@ -72,6 +75,8 @@ class Source(db.Model):
     text = one large string of text. used for generating markov chains, 
               chains can be generated from multiple sources via concatenation"""
 
+    __tablename__ = "sources"
+
     source_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     content_type = db.Column(db.String(30))
     content = db.Column(db.Text, nullable=False)
@@ -80,6 +85,7 @@ class Source(db.Model):
         """Provides content info when printed."""
 
         return f"<Source ID={self.source_id}, type={self.content_type}, \n sample={self.content[:30]}...>"
+
 
 class Post(db.Model):
     """Contains content created by bots."""
