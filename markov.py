@@ -40,7 +40,8 @@ def make_chains(text_string, chain_length):
         >>> chains[('there','juanita')]
         [None]
     """
-    words = text_string.split()
+
+    words = text_string.lower().split()
     chains = {}
 
     # chain_length = int(input("Input the number of words to use in your key: "))
@@ -65,8 +66,8 @@ def make_text(chains, num_sents):
 
     for n in range(num_sents):
 
-        while key[0].istitle() is False:
-            key = choice(key_list)
+        # while key[0].istitle() is False:
+        #     key = choice(key_list)
 
         while key in chains and key[-1][-1] not in punctuation:
             value = choice(chains[key])
