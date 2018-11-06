@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<h1>Directory</h1>
+
+<ul class="fa-ul">
+    {% for bot in bots %}
+      <li><span class="fa-li"><span class="fas fa-{{ bot.bot_icon }}"></span></span> <a href="/bot/{{ bot.bot_id }}">{{ bot.bot_name }} ({{ bot.bot_id }})</a>
+      </li>
+      <br>
+    {% endfor %}
+</ul>
+
+  {% endblock %}
