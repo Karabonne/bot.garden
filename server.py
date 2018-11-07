@@ -33,11 +33,10 @@ def show_user_page(user_id):
     """TODO: Shows a user info page, including list of user's bots."""
 
     user = User.query.get(user_id)
-    user_bots = Bot.query.filter_by(creator_id=user_id).all()
 
     return render_template("user.html",
                               user=user,
-                              user_bots=user_bots)
+                              user_bots=user.bots)
 
 
 @app.route('/bot/<bot_id>')
@@ -45,22 +44,20 @@ def show_bot_page(bot_id):
     """TODO: Shows a bot info page, including posts and creator."""
 
     bot = Bot.query.get(bot_id)
-    creator = bot.user
-    bot_posts = Post.query.filter_by(bot_id=bot_id).all()
 
     return render_template("bot.html",
                             bot=bot,
-                            creator=creator,
-                            bot_posts=bot_posts)
+                            creator=bot.user,
+                            bot_posts=bot.posts)
 
 
 @app.route('/')
 def show_bot_directory():
     """Shows a bot directory."""
 
-    bot_entries = Bot.query.all()
+    bots = Bot.query.all()
 
-    return render_template("directory.html", bots=bot_entries)
+    return render_template("directory.html", bots=bots)
 
 
 # 2. USER REGISTRATION AND LOGIN SECTION ------------------
@@ -157,7 +154,7 @@ def create_bot():
     source = Source(content_type='twitter',
                     content_source=data_source,
                     content=tweets)
-    
+
     db.session.add(source)
     db.session.commit()
 
@@ -167,12 +164,12 @@ def create_bot():
                 bot_icon=icon,
                 content_id=source.source_id,
                 date_created=datetime.today())
-    
+
     db.session.add(bot)
     db.session.commit()
-    
+
     flash('It lives....it lives!')
-    
+
 
     return redirect("/")
 
