@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func
+from sqlalchemy_utils import PasswordType, force_auto_coercion
 import time
 from datetime import date, datetime
 
@@ -22,16 +23,19 @@ def connect_to_db(app):
 
 
 class User(db.Model):
-    """Users of the site - users create bots only, no posts."""
+    """Users of the site - users create bots only, no posts. Passwords are
+    hashed using pbkdf2_sha512 via the sqlalchemy_utils package."""
 
     __tablename__ = "users"
 
     user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     username = db.Column(db.String(255), nullable=False)
-    password = db.Column(db.String(255), nullable=False)
+    password = db.Column(PasswordType(onload=lambda **kwargs: dict(
+                schemes=flask.current_app.config['PASSWORD_SCHEMES'],
+                **kwargs)), unique=False, nullable=False)
     user_icon = db.Column(db.String(255), nullable=False)
     user_description = db.Column(db.String(255), nullable=True)
-    date_created = db.Column(db.DateTime, nullable=False)
+    date_created = db.Column(db.DateTime, default=datetime.datetime.utcnow(), nullable=False)
 
     def __repr__(self):
         """Provides basic user info when printed."""
@@ -50,12 +54,12 @@ class Bot(db.Model):
     bot_name = db.Column(db.String(64), nullable=False)
     bot_icon = db.Column(db.String(255), nullable=False)
     bot_description = db.Column(db.String(255), nullable=False)
-    date_created = db.Column(db.DateTime, nullable=False)
+    date_created = db.Column(db.DateTime, default=datetime.datetime.utcnow(), nullable=False)
 
-    user = db.relationship("User", backref=db.backref('bot',
+    user = db.relationship("User", backref=db.backref('bots',
                                                       order_by=bot_id))
 
-    post = db.relationship("Post", backref=db.backref('bot',
+    posts = db.relationship("Post", backref=db.backref('bot',
                                                       order_by=bot_id))
 
     source = db.relationship("Source", backref=db.backref('bot',
@@ -71,8 +75,9 @@ class Source(db.Model):
     """Contains content used for post generation. These sources are stored
     as follows:
     source_id = autoincrementing index for rows
-    type = might be helpful in the future, but for now, most are 'twitter'
-    text = one large string of text. used for generating markov chains, 
+    content_type = might be helpful in the future, but for now, most are 'twitter'
+    content_source = content identifier (twitter handle, NLTK corpus, etc)
+    content = one large string of text. used for generating markov chains,
               chains can be generated from multiple sources via concatenation"""
 
     __tablename__ = "sources"
@@ -96,7 +101,7 @@ class Post(db.Model):
     post_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     bot_id = db.Column(db.Integer, db.ForeignKey('bots.bot_id'))
     content = db.Column(db.Text, nullable=False)
-    date_created = db.Column(db.DateTime, nullable=False)
+    date_created = db.Column(db.DateTime, default=datetime.datetime.utcnow(), nullable=False)
 
     def __repr__(self):
         """Provide simple post info when printed."""
