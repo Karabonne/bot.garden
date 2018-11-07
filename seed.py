@@ -1,3 +1,4 @@
+import flask
 from sqlalchemy import func
 from sqlalchemy_utils import PasswordType, force_auto_coercion
 import markovify
@@ -33,35 +34,7 @@ def add_users():
     db.session.commit()
 
 
-def add_bots():
-    """Add bots from a seed file. Data is stored in this format:
-
-    creator_id|content_id|bot_name|bot_icon|bot_description
-    """
-
-    print("Bots")
-
-    # Deletes any existing data in the bots table
-    Bot.query.delete()
-
-    for line in open("seed_files/bots.txt"):
-        line = line.rstrip()
-
-        creator_id, content_id, bot_name,
-        bot_icon, bot_description = line.split("|")
-
-        bot = Bot(creator_id=creator_id,
-                      content_id=content_id,
-                      bot_name=bot_name,
-                      bot_icon=bot_icon,
-                      bot_description=bot_description)
-
-        db.session.add(bot)
-
-    db.session.commit()
-
-
-def add_users():
+def add_sources():
     """Add sources to the database. Sources are built as follows:
 
     1. read from input file, contains the following:
@@ -81,6 +54,7 @@ def add_users():
     # Deletes any existing data in the users table
     Source.query.delete()
 
+
     for line in open("seed_files/sources.txt"):
         line = line.rstrip()
         content_type, content_source = line.split("|")
@@ -92,6 +66,8 @@ def add_users():
         elif content_type == "nltk":
 
             nltk.download(content_source)
+            text = getattr(nltk.corpus, content_source)
+            content =  ' '.join(text.words())
 
         else:
 
@@ -99,10 +75,37 @@ def add_users():
             break
 
         source = Source(content_type=content_type,
-                               content_source=content_source
+                               content_source=content_source,
                                content=content)
 
-        db.session.add(user)
+        db.session.add(source)
+
+    db.session.commit()
+
+
+def add_bots():
+    """Add bots from a seed file. Data is stored in this format:
+
+    creator_id|content_id|bot_name|bot_icon|bot_description
+    """
+
+    print("Bots")
+
+    # Deletes any existing data in the bots table
+    Bot.query.delete()
+
+    for line in open("seed_files/bots.txt"):
+        line = line.rstrip()
+
+        creator_id, source_id, bot_name, bot_icon, bot_description = line.split("|")
+
+        bot = Bot(creator_id=creator_id,
+                      source_id=source_id,
+                      bot_name=bot_name,
+                      bot_icon=bot_icon,
+                      bot_description=bot_description)
+
+        db.session.add(bot)
 
     db.session.commit()
 
@@ -115,6 +118,6 @@ if __name__ == "__main__":
     # In case tables haven't been created, create them
     db.create_all()
 
-    load_users()
-    load_bots()
-    load_sources()
+    # add_users()
+    # add_bots()
+    # add_sources()

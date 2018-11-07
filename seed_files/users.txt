@@ -1,0 +1,3 @@
+kara|12345|seedling|a lil' seedling
+not-kara|67890|fighter-jet|really just a plane
+EX-kara|123456|mercury|???

@@ -7,7 +7,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 from datetime import date, datetime
 from model import Bot, User, Post, Source, connect_to_db, db
 from processing import get_tweets
-from markov import make_chains, make_text
+import markovify
 
 import json
 
@@ -86,8 +86,7 @@ def process_reg():
         user = User(username=new_username,
                  password=pswd,
                  user_icon=icon,
-                 user_description=desc,
-                 date_created=datetime.today())
+                 user_description=desc)
         db.session.add(user)
         db.session.commit()
         flash('Registration successful!')
@@ -162,8 +161,7 @@ def create_bot():
                 creator_id = session['user_id'],
                 bot_description=desc,
                 bot_icon=icon,
-                content_id=source.source_id,
-                date_created=datetime.today())
+                content_id=source.source_id)
 
     db.session.add(bot)
     db.session.commit()
@@ -183,11 +181,14 @@ def create_post():
 
     bot_id = request.form.get('bot_id')
     bot = Bot.query.filter(bot_id==bot_id).first()
-    text = make_text(make_chains(bot.source.content, 2), 1)
+    chains = markovify.Text(bot.source.content)
+    text = chains.make_sentence()
+
+    if text == None:
+        text = "*the bot hums gently*"
 
     post = Post(bot_id=bot_id,
-                content=text,
-                date_created=datetime.today())
+                content=text)
 
     db.session.add(post)
     db.session.commit()

@@ -8,6 +8,8 @@
     {% for bot in bots %}
       <li><span class="fa-li"><span class="fas fa-{{ bot.bot_icon }}"></span></span> <a href="/bot/{{ bot.bot_id }}">{{ bot.bot_name }} ({{ bot.bot_id }})</a>
       </li>
+      <ul class="fa-ul">
+      <li><span class="fa-li"><span class="fas fa-"chevron-right"></span></span><em>{{ bot.bot_description }}</em></ul>
       <br>
     {% endfor %}
 </ul>

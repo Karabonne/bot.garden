@@ -31,11 +31,11 @@ class User(db.Model):
     user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     username = db.Column(db.String(255), nullable=False)
     password = db.Column(PasswordType(onload=lambda **kwargs: dict(
-                schemes=flask.current_app.config['PASSWORD_SCHEMES'],
+                schemes=['pbkdf2_sha512','md5_crypt'],
                 **kwargs)), unique=False, nullable=False)
     user_icon = db.Column(db.String(255), nullable=False)
     user_description = db.Column(db.String(255), nullable=True)
-    date_created = db.Column(db.DateTime, default=datetime.datetime.utcnow(), nullable=False)
+    date_created = db.Column(db.DateTime, default=datetime.utcnow(), nullable=False)
 
     def __repr__(self):
         """Provides basic user info when printed."""
@@ -50,11 +50,11 @@ class Bot(db.Model):
 
     bot_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     creator_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
-    content_id = db.Column(db.Integer, db.ForeignKey('sources.source_id'), nullable=False)
+    source_id = db.Column(db.Integer, db.ForeignKey('sources.source_id'), nullable=False)
     bot_name = db.Column(db.String(64), nullable=False)
     bot_icon = db.Column(db.String(255), nullable=False)
     bot_description = db.Column(db.String(255), nullable=False)
-    date_created = db.Column(db.DateTime, default=datetime.datetime.utcnow(), nullable=False)
+    date_created = db.Column(db.DateTime, default=datetime.utcnow(), nullable=False)
 
     user = db.relationship("User", backref=db.backref('bots',
                                                       order_by=bot_id))
@@ -101,7 +101,7 @@ class Post(db.Model):
     post_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     bot_id = db.Column(db.Integer, db.ForeignKey('bots.bot_id'))
     content = db.Column(db.Text, nullable=False)
-    date_created = db.Column(db.DateTime, default=datetime.datetime.utcnow(), nullable=False)
+    date_created = db.Column(db.DateTime, default=datetime.utcnow(), nullable=False)
 
     def __repr__(self):
         """Provide simple post info when printed."""
