@@ -1,5 +1,9 @@
+import nltk
 from twitter import Twitter, OAuth
 from config import *
+from model import Source
+
+
 
 # Initialize our twitter session
 t = Twitter(
@@ -55,3 +59,32 @@ def get_tweets(username):
             break
 
     return text_list
+
+def process_source(content_type, content_source):
+
+    if content_type == "twitter":
+
+        tweets = get_tweets(content_source)
+        content = (' '.join(tweets)).split()
+
+        for item in content:
+            print(item)
+            if 'http' in item or '@' in item:
+                print(f"removing {item}")
+                content.remove(item)
+
+        content = ' '.join(content)
+
+    elif content_type == "nltk":
+
+        nltk.download(content_source)
+        text = getattr(nltk.corpus, content_source)
+        content =  ' '.join(text.words())
+
+    else:
+
+        print("Invalid source! Aborting...")
+
+    # source = Source(content_type=content_type,
+    #                        content_source=content_source,
+    #                        content=content)

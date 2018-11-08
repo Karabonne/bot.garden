@@ -8,7 +8,7 @@
 Bot by: {{ creator.username }}
 <form action="/post" method="POST">
     <p>
-        <input type="text" name="bot_id" value="{{ bot.bot_id }}" readonly>
+        <input type="text" name="bot_id" value="{{ bot.bot_id }}" readonly hidden>
         <input type="submit" value="Generate a post!">
     <p>
 Posts:

@@ -161,7 +161,7 @@ def create_bot():
                 creator_id = session['user_id'],
                 bot_description=desc,
                 bot_icon=icon,
-                content_id=source.source_id)
+                source_id=source.source_id)
 
     db.session.add(bot)
     db.session.commit()
@@ -180,7 +180,7 @@ def create_post():
     """Generates a new post from sources."""
 
     bot_id = request.form.get('bot_id')
-    bot = Bot.query.filter(bot_id==bot_id).first()
+    bot = Bot.query.get(bot_id)
     chains = markovify.Text(bot.source.content)
     text = chains.make_sentence()
 
@@ -209,4 +209,4 @@ if __name__ == "__main__":
     # Use the DebugToolbar
     DebugToolbarExtension(app)
 
-    app.run(port=5000, host='0.0.0.0')
+    app.run(port=5000, host='localhost')

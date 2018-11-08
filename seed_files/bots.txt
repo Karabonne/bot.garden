@@ -1,6 +1,6 @@
 1|1|robo-kara|robot|beep boop, hello i am kara
 1|2|robo-kid|users|kid jokes, made by robot kids
 2|3|robo-hackbright!|laptop-code|change the ratio of robots to humans
-2|4|the internet|tty|what if the internet were a person
+2|4|the internet|tty|what if the internet were a bot
 3|5|biblebot|cross|it's the bible.....?
 3|6|portugal, the bot|futbol|beleza?
