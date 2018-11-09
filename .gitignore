@@ -5,3 +5,5 @@ config.py
 planning
 testing*
 TODO*
+markov.py
+markov.pyc

@@ -20,8 +20,17 @@
   		<input type="text" name="description" id="description" required>
   	</p>
     <p>
-  		<label for="twitter">Twitter </label>
-  		<input type="text" name="twitter" id="twitter" required>
+      <label for="type">Source type</label>
+      <select id="type" name="type">
+        <option value="twitter">Twitter</option>
+        <option value="nltk">NLTK</option>
+      </select>
+    <p>
+  		<label for="source">Data source </label><br>
+      <input type="text" name="source" id="source" required><br>
+      Twitter: Gimme a username - the stuff <em>after</em> the @.<br>
+      NLTK: Select an <samp>id</samp> from the list
+      <a href="http://www.nltk.org/nltk_data/">here</a>.
   	</p>
   		<input type="submit">
   </form>

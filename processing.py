@@ -2,12 +2,33 @@ import nltk
 from twitter import Twitter, OAuth
 from config import *
 from model import Source
+import markovify
 
 
 
 # Initialize our twitter session
 t = Twitter(
     auth=OAuth(access_token, token_secret, api_key, api_secret))
+
+def open_and_read_file(file):
+    """Take file path as string; return text as string.
+    Takes a string that is a file path, opens the file, and returns
+    the file's contents as one string of text.
+    """
+
+    with open(file) as opened_file:
+        text = opened_file.read()
+        text = text.replace('\n', ' ')
+
+    return text
+
+def process_files(*args):
+
+    text = ""
+    for file in args:
+        text += open_and_read_file(file)
+
+    return text
 
 def get_tweets(username):
     """
@@ -62,13 +83,14 @@ def get_tweets(username):
 
 def process_source(content_type, content_source):
 
+    if content_type == "text_file":
     if content_type == "twitter":
 
         tweets = get_tweets(content_source)
-        content = (' '.join(tweets)).split()
+        content = (' '.join(tweets.replace()).split()
 
         for item in content:
-            print(item)
+            item = item.replace('\n',' ')
             if 'http' in item or '@' in item:
                 print(f"removing {item}")
                 content.remove(item)
@@ -85,6 +107,4 @@ def process_source(content_type, content_source):
 
         print("Invalid source! Aborting...")
 
-    # source = Source(content_type=content_type,
-    #                        content_source=content_source,
-    #                        content=content)
+    return content

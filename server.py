@@ -6,7 +6,7 @@ from flask import Flask, render_template, redirect, request, flash, session
 from flask_debugtoolbar import DebugToolbarExtension
 from datetime import date, datetime
 from model import Bot, User, Post, Source, connect_to_db, db
-from processing import get_tweets
+from processing import process_source
 import markovify
 
 import json
@@ -146,13 +146,15 @@ def create_bot():
 
     name = request.form.get('name')
     desc = request.form.get('description')
-    data_source = request.form.get('twitter')
+    data_source = request.form.get('source')
+    content_type = request.form.get('type')
     icon = request.form.get('icon')
 
-    tweets = ' '.join(get_tweets(data_source))
-    source = Source(content_type='twitter',
+    content = process_source(content_type, data_source)
+
+    source = Source(content_type=content_type,
                     content_source=data_source,
-                    content=tweets)
+                    content=content)
 
     db.session.add(source)
     db.session.commit()
