@@ -22,13 +22,13 @@ def open_and_read_file(file):
 
     return text
 
-def process_files(*args):
-
-    text = ""
-    for file in args:
-        text += open_and_read_file(file)
-
-    return text
+# def process_files(*args):
+#
+#     text = ""
+#     for file in args:
+#         text += open_and_read_file(file)
+#
+#     return text
 
 def get_tweets(username):
     """
@@ -84,13 +84,15 @@ def get_tweets(username):
 def process_source(content_type, content_source):
 
     if content_type == "text_file":
-    if content_type == "twitter":
+
+        content = open_and_read_file(content_source)
+
+    elif content_type == "twitter":
 
         tweets = get_tweets(content_source)
-        content = (' '.join(tweets.replace()).split()
+        content = (' '.join(tweets.replace('\n', ' ')).split()
 
         for item in content:
-            item = item.replace('\n',' ')
             if 'http' in item or '@' in item:
                 print(f"removing {item}")
                 content.remove(item)
