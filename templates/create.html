@@ -2,7 +2,7 @@
 {% block content %}
 
 {% if 'user_id' in session %}
-  <form action="/create" method="POST">
+  <form action="/create" method="POST" enctype="multipart/form-data">
     <p>Build-a-bot!</p>
     <p>This builds a bot from a <em>current</em> sampling of tweets.
       Currently, this will read the last 3200 tweets from the account.
@@ -28,15 +28,13 @@
       </select>
     <p>
   		<label for="source">Data source </label><br>
-      <input type="text" name="source" id="source" required><br>
-      <input type="file"
-       id="text_file" name="text_file"
-       accept=".txt">
+      <input type="text" name="source" id="source"><br>
+      <input type="file" id="text_file" name="text_file"
+       accept=".txt"><p>
       Twitter: Gimme a username - the stuff <em>after</em> the @.<br>
-      NLTK: Select an <samp>id</samp> from the list.<br>
+      NLTK: Select an <samp>id</samp> from the list <a href="http://www.nltk.org/nltk_data/">here</a>.<br>
       Text files: Works best with files that contain big strings of text. .txt
       files only, please~<br>
-      <a href="http://www.nltk.org/nltk_data/">here</a>.
   	</p>
   		<input type="submit">
   </form>

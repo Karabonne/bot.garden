@@ -85,12 +85,13 @@ def process_source(content_type, content_source):
 
     if content_type == "text_file":
 
-        content = open_and_read_file(content_source)
+        content = process_files(content_source)
+        # content = open_and_read_file(content_source)
 
     elif content_type == "twitter":
 
         tweets = get_tweets(content_source)
-        content = (' '.join(tweets.replace('\n', ' ')).split()
+        content = ' '.join(tweets.replace('\n', ' ').split())
 
         for item in content:
             if 'http' in item or '@' in item:

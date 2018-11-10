@@ -1,17 +1,17 @@
 """server file for bot playground."""
 
 from jinja2 import StrictUndefined
-
 from flask import Flask, render_template, redirect, request, flash, session
+from werkzeug.utils import secure_filename
 from flask_debugtoolbar import DebugToolbarExtension
 from datetime import date, datetime
 from model import Bot, User, Post, Source, connect_to_db, db
 from processing import process_source
 import markovify
-
-import json
+import os
 
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = 'uploads'
 
 # Required to use Flask sessions and the debug toolbar
 app.secret_key = "ABC123456hackbright"
@@ -149,6 +149,16 @@ def create_bot():
     data_source = request.form.get('source')
     content_type = request.form.get('type')
     icon = request.form.get('icon')
+
+    if content_type == "text_file":
+        # file = request.files['text_file']
+        data_source = []
+        file_list = flask.request.files.getlist("text_file")
+        for file in file_list:
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            # TODO: complete multiple file upload
+            # data_source = "uploads/" + filename
 
     content = process_source(content_type, data_source)
 
