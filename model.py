@@ -37,6 +37,7 @@ class User(db.Model):
     user_description = db.Column(db.String(255), nullable=True)
     date_created = db.Column(db.DateTime, default=datetime.utcnow(), nullable=False)
 
+
     def __repr__(self):
         """Provides basic user info when printed."""
 
@@ -84,7 +85,7 @@ class Source(db.Model):
 
     source_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     content_type = db.Column(db.String(30))
-    content_source = db.Column(db.String(255))
+    content_source = db.Column(db.Text, nullable=False)
     content = db.Column(db.Text, nullable=False)
 
     def __repr__(self):

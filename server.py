@@ -151,14 +151,12 @@ def create_bot():
     icon = request.form.get('icon')
 
     if content_type == "text_file":
-        # file = request.files['text_file']
         data_source = []
-        file_list = flask.request.files.getlist("text_file")
+        file_list = request.files.getlist("text_file")
         for file in file_list:
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            # TODO: complete multiple file upload
-            # data_source = "uploads/" + filename
+            data_source.append("uploads/" + filename)
 
     content = process_source(content_type, data_source)
 

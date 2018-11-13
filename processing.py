@@ -17,18 +17,23 @@ def open_and_read_file(file):
     """
 
     with open(file) as opened_file:
-        text = opened_file.read()
-        text = text.replace('\n', ' ')
+        try:
+            text = opened_file.read().rstrip()
+            text = text.replace('\n', ' ')
+            text = text.replace('\0', ' ')
+            text = text.replace('\t', ' ')
+        except UnicodeDecodeError:
+            return " "
 
     return text
 
-# def process_files(*args):
-#
-#     text = ""
-#     for file in args:
-#         text += open_and_read_file(file)
-#
-#     return text
+def process_files(file_list):
+
+    text = ""
+    for file in file_list:
+        text += open_and_read_file(file)
+
+    return text
 
 def get_tweets(username):
     """
