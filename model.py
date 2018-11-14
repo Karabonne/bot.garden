@@ -109,6 +109,25 @@ class Post(db.Model):
 
         return f"<{self.content}>"
 
+class Favorite(db.Model):
+    """Relationship table between users and bots. Favorites are used to
+    later display a page of curated bot content specific to a user."""
+
+    __tablename__ = "favorites"
+
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
+    bot_id = db.Column(db.Integer, db.ForeignKey('bots.bot_id'))
+
+    user = db.relationship("User", backref=db.backref('favorites',
+                                                      order_by=user_id))
+
+    bot = db.relationship("Bot", backref=db.backref('favorites',
+                                                      order_by=user_id))
+
+    def __repr__(self):
+        """Provides user and bot info for this favorite."""
+
+        return f"<❤User: {self.user.username} ❤ Bot: {self.bot.bot_name}>"
 
 if __name__ == "__main__":
 
