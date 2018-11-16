@@ -127,7 +127,7 @@ class Favorite(db.Model):
     def __repr__(self):
         """Provides user and bot info for this favorite."""
 
-        return f"<❤User: {self.user.username} ❤ Bot: {self.bot.bot_name}>"
+        return f"<❤User: {self.user.username} ❤ Bot: {self.bot.bot_name}❤>"
 
 if __name__ == "__main__":
 
