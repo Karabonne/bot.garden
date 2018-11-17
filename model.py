@@ -115,6 +115,7 @@ class Favorite(db.Model):
 
     __tablename__ = "favorites"
 
+    fav_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
     bot_id = db.Column(db.Integer, db.ForeignKey('bots.bot_id'))
 
