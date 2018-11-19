@@ -61,7 +61,7 @@ def get_tweets(username):
     # request, and stops either after 30 requests or when the API doesn't
     # return any more data
 
-    while len(tweets) > 1 and requests < 30:
+    while len(tweets) > 1:
 
         try:
             print("length = " + str(len(tweets)))
