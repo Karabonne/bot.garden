@@ -2,12 +2,11 @@
 {% block content %}
 
 Username: {{ user.username }}<br>
-Password: {{ user.password }}<br>
 Info: {{ user.user_description }}<br>
 
 Bots:
 <ul>
-	{% for bot in user_bots %}
+	{% for bot in user.bots %}
         <span class="fas fa-{{ bot.bot_icon }}"></span>
 		<li>Bot ID: {{ bot.bot_id }}</li>
         <li>Bot Name: {{ bot.bot_name }}</li>

@@ -4,58 +4,61 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link rel="stylesheet" href="/static/css/styles.css">
-<link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
+<link type="text/css" rel="stylesheet" href="/static/css/materialize.css"  media="screen,projection"/>
+
 <head>
   <title>Project Test Page</title>
 </head>
+
 <noscript>hello! i'm very glad you're here, really. but you gotta have javascript to make much use of this place.
 
 i'm truly sorry this is the case, but, you know - internet.</noscript>
 
-{% if 'user_id' in session %}
-  <a href="/user/{{ session['user_id'] }}">{{ session['username'] }}</a>
-	  <form action="/logout" method="GET">
-	  	<input type="submit" value="Log Out">
-	  </form>
-      <a href = "/create">Summon a bot!</a>
-  {% else %}
-	    <form action="/login" method="POST">
-      <p>
-        <div class="mdc-text-field">
-  			     <input type="text" name="username" id="username" required>
-             <label for="username">Username</label>
-        </div>
-      </p>
-      <p>
-        <div class="mdc-text-field">
-  			     <input type="password" name="password" id="password" required>
-             <label for="password">Password</label>
-        </div>
-      </p>
-			<input type="submit" value="Log In">
-            or <a href="/register">register</a>
-		</form>
-{% endif %}
-</p>
-
-<a href="/">🎶 take me hooooome 🎶</a>
-
 <body>
-{% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <ul class=flashes>
-    {% for message in messages %}
-      <li>{{ message }}</li>
-    {% endfor %}
-    </ul>
-  {% endif %}
-{% endwith %}
+    <div class="container">
+        {% if 'user_id' in session %}
+          <a href="/user/{{ session['user_id'] }}">{{ session['username'] }}</a>
+        	  <form action="/logout" method="GET">
+        	  	<input type="submit" value="Log Out">
+        	  </form>
+              <a href = "/create">Summon a bot!</a>
+          {% else %}
+        	    <form action="/login" method="POST">
+              <p>
+                <div class="mdc-text-field">
+          			     <input type="text" name="username" id="username" required>
+                     <label for="username">Username</label>
+                </div>
+              </p>
+              <p>
+                <div class="mdc-text-field">
+          			     <input type="password" name="password" id="password" required>
+                     <label for="password">Password</label>
+                </div>
+              </p>
+        			<input type="submit" value="Log In">
+                    or <a href="/register">register</a>
+        		</form>
+        {% endif %}
+        </p>
 
-<div class="container">
-{% block content %}
-{% endblock %}
-</div>
+        <a href="/">🎶 take me hooooome 🎶</a>
 
+
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul class=flashes>
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+
+        {% block content %}
+        {% endblock %}
+
+    </div>
 </body>
-<script type="text/javascript" src="js/materialize.js"></script>
+<script type="text/javascript" src="/static/js/materialize.js"></script>
 </html>

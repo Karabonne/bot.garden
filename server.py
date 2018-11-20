@@ -35,8 +35,7 @@ def show_user_page(user_id):
     user = User.query.get(user_id)
 
     return render_template("user.html",
-                              user=user,
-                              user_bots=user.bots)
+                              user=user)
 
 
 @app.route('/bot/<bot_id>')
@@ -46,9 +45,7 @@ def show_bot_page(bot_id):
     bot = Bot.query.get(bot_id)
 
     return render_template("bot.html",
-                            bot=bot,
-                            creator=bot.user,
-                            bot_posts=bot.posts)
+                            bot=bot)
 
 
 @app.route('/')

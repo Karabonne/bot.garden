@@ -7,7 +7,7 @@
 }
 
 body {
-  background-color: #716799;
+  background-image: url(/static/styles/pattern-light.svg);
 }
 
 .mdc-card {

@@ -5,15 +5,14 @@
 <br>
 <em>{{ bot.bot_description }}</em>
 <br>
-Bot by: {{ creator.username }}
+Bot by: {{ bot.user.username }}
 <form action="/post" method="POST">
     <p>
-        <input type="text" name="bot_id" value="{{ bot.bot_id }}" readonly hidden>
-        <input type="submit" value="Generate a post!">
+        <input type="text" name="bot_id" value="{{ bot.bot_id }}" readonly hidden>        <input type="submit" value="Generate a post!">
     <p>
 Posts:
 <ul class="fa-ul">
-    {% for post in bot_posts %}
+    {% for post in bot.posts %}
       <li><span class="fa-li"><span class="fas fa-{{ bot.bot_icon }}"></span></span><span class="fas fa-caret-right"></span> {{ post.content }}
       </li>
       <br>
