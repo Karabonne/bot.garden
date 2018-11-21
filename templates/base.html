@@ -5,6 +5,10 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link rel="stylesheet" href="/static/css/styles.css">
 <link type="text/css" rel="stylesheet" href="/static/css/materialize.css"  media="screen,projection"/>
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
 
 <head>
   <title>Project Test Page</title>
@@ -16,44 +20,18 @@ i'm truly sorry this is the case, but, you know - internet.</noscript>
 
 <body>
     <div class="container">
-        {% if 'user_id' in session %}
-          <a href="/user/{{ session['user_id'] }}">{{ session['username'] }}</a>
-        	  <form action="/logout" method="GET">
-        	  	<input type="submit" value="Log Out">
-        	  </form>
-              <a href = "/create">Summon a bot!</a>
-          {% else %}
-        	    <form action="/login" method="POST">
-              <p>
-                <div class="mdc-text-field">
-          			     <input type="text" name="username" id="username" required>
-                     <label for="username">Username</label>
-                </div>
-              </p>
-              <p>
-                <div class="mdc-text-field">
-          			     <input type="password" name="password" id="password" required>
-                     <label for="password">Password</label>
-                </div>
-              </p>
-        			<input type="submit" value="Log In">
-                    or <a href="/register">register</a>
-        		</form>
+
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <ul class=flashes>
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+          </ul>
         {% endif %}
-        </p>
+      {% endwith %}
 
         <a href="/">🎶 take me hooooome 🎶</a>
-
-
-        {% with messages = get_flashed_messages() %}
-          {% if messages %}
-            <ul class=flashes>
-            {% for message in messages %}
-              <li>{{ message }}</li>
-            {% endfor %}
-            </ul>
-          {% endif %}
-        {% endwith %}
 
         {% block content %}
         {% endblock %}
