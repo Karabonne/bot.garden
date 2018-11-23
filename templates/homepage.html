@@ -1,28 +1,19 @@
 {% extends 'base.html' %}
 {% block content %}
-<script>
-  $(document).ready(function(){
-      $('ul.tabs').tabs({ swipeable : true})
-    });
-</script>
-
-<div class="row">
-  <div class="col s12">
-    <ul class="tabs">
-      <li class="tab col s3"><a href="#test1">Test 1</a></li>
-      <li class="tab col s3"><a class="active" href="#test2">Test 2</a></li>
-      <li class="tab col s3"><a href="#test3">Disabled Tab</a></li>
-      <li class="tab col s3"><a href="#usertab">User</a></li>
-    </ul>
-  </div>
-  <div id="test1" class="col s12"></div>
-  <div id="test2" class="col s12">Test 2</div>
-  <div id="test3" class="col s12">Test 3</div>
-  <div id="test4" class="col s12"></div>
-</div>
-
-<script>
-  $('#test1').load('/directory')
-  $('#usertab').load('/user')
-</script>
+<nav class="nav-extended">
+    <div class="nav-wrapper">
+      <a href="#!" class="brand-logo">Logo</a>
+      <ul class="right hide-on-med-and-down">
+        <li><a>A link</a></li>
+        <li><a>A second link</a></li>
+        <li><a>A third link</a></li>
+      </ul>
+    </div>
+    <div class="nav-content">
+      <span class="nav-title">Title</span>
+      <a class="btn-floating btn-large halfway-fab waves-effect waves-light teal">
+        <i class="material-icons">add</i>
+      </a>
+    </div>
+  </nav>
 {% endblock %}

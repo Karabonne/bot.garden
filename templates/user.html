@@ -1,6 +1,3 @@
-{% extends 'base.html' %}
-{% block content %}
-
 {% if 'user_id' in session %}
 	<a href="/user/{{ session['user_id'] }}">{{ session['username'] }}</a>
 		<form action="/logout" method="GET">
@@ -21,20 +18,64 @@
 			{% endfor %}
 		</ul>
 	{% else %}
-			<form action="/login" method="POST">
-			<p>
-				<div class="mdc-text-field">
-						 <input type="text" name="username" id="username" required>
-						 <label for="username">Username</label>
-				</div>
-			<p>
-				<div class="mdc-text-field">
-						 <input type="password" name="password" id="password" required>
-						 <label for="password">Password</label>
-				</div>
+    <form action="/login" method="POST">
+        <div class="row">
+            <div class="input-field col s8">
+				<input type="text" name="username" id="username" required>
+				<label for="username">Username</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s8">
+				<input class="validate" type="password" name="password" id="password" required>
+				<label for="password">Password</label>
+			</div>
+
 			<input type="submit" value="Log In">
-						or <a href="/register">register</a>
+			or <a href="/register">register</a>
 		</form>
+    </div>
 {% endif %}
 
-{% endblock %}
+
+
+<div id="user" class="col s8">
+    {% if 'user_id' in session %}
+      <a href="/user/{{ session['user_id'] }}">{{ session['username'] }}</a>
+        <form action="/logout" method="GET">
+          <input type="submit" value="Log Out">
+        </form>
+
+      Username: {{ user.username }}<br>
+      Info: {{ user.user_description }}<br>
+
+      Bots:
+      <ul>
+        {% for bot in user.bots %}
+              <span class="fas fa-{{ bot.bot_icon }}"></span>
+          <li>Bot ID: {{ bot.bot_id }}</li>
+              <li>Bot Name: {{ bot.bot_name }}</li>
+          <li>Bot Description: {{ bot.bot_description }}</li>
+          <br>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <form action="/login" method="POST">
+          <div class="row">
+              <div class="input-field col s8">
+                <input type="text" name="username" id="username" required>
+                <label for="username">Username</label>
+              </div>
+          </div>
+          <div class="row">
+              <div class="input-field col s8">
+                <input class="validate" type="password" name="password" id="password" required>
+                <label for="password">Password</label>
+              </div>
+          </div>
+
+        <input type="submit" value="Log In">
+        or <a href="/register">register</a>
+      </form>
+    {% endif %}
+  </div>
