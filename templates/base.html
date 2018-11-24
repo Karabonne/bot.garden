@@ -37,14 +37,12 @@ i'm truly sorry this is the case, but, you know - internet.</noscript>
 
     <div class="container">
         <nav>
-            <div class="nav-wrapper">
-              <a href="#!" class="brand-logo">Logo</a>
+            <div class="nav-wrapper deep-purple lighten-3">
               <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-              <ul class="right hide-on-med-and-down">
-                <li><a href="sass.html">Sass</a></li>
-                <li><a href="badges.html">Components</a></li>
-                <li><a href="collapsible.html">Javascript</a></li>
-                <li><a href="mobile.html">Mobile</a></li>
+              <ul class="tabs hide-on-med-and-down deep-purple lighten-3">
+                <li id="feed"><a>chatter</a></li>
+                <li id="directory"><a>directory</a></li>
+                <li id="user"><a>user</a></li>
               </ul>
             </div>
         </nav>
@@ -53,12 +51,17 @@ i'm truly sorry this is the case, but, you know - internet.</noscript>
         <li><a href="sass.html">Sass</a></li>
         <li><a href="badges.html">Components</a></li>
         <li><a href="collapsible.html">Javascript</a></li>
-        <li><a href="mobile.html">Mobile</a></li>
     </ul>
     <div class="container">
-
+      <div class="content">
+      </div>
 
     </div>
 </body>
 <script type="text/javascript" src="/static/js/materialize.js"></script>
+<script>
+$( "#other" ).click(function() {
+  $( "#target" ).click();
+});
+</script>
 </html>

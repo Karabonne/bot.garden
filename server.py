@@ -32,7 +32,7 @@ def show_index():
 def show_user_tab():
     """Shows the page used for the user tab."""
 
-    return render_template("user.html")
+    return render_template("user.html", user=user)
 
 @app.route('/user/<user_id>')
 def show_user_page(user_id):
