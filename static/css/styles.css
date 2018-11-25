@@ -1,33 +1,39 @@
-
-:root {
-  --mdc-theme-primary: #5a5475;
-  --mdc-theme-secondary: #C2FFDF;
-  --mdc-theme-on-primary: #F8F8F2;
-  --mdc-theme-on-secondary: #000000;
-}
-
 body {
   background-image: url(/static/styles/pattern-light.svg);
 }
 
-.mdc-card {
-  height: 350px;
-  width: 350px;
+.card {
+    border-radius: 5px;
 }
 
-.app-fab--absolute {
-  position: fixed;
-  bottom: 1rem;
-  right: 1rem;
+.card-content {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 
-@media(min-width: 1024px) {
-   .app-fab--absolute {
-    bottom: 1.5rem;
-    right: 1.5rem;
-  }
+.card-panel {
+    border-radius: 5px;
 }
 
-#action_icon {
+.card-title {
+    padding: 8px;
+}
 
+.btn-floating {
+    background-color: #c5db9d;
+}
+
+.fas {
+    color: #424242;
+}
+
+.mobile-fab-tip {
+    position: fixed;
+    right: 85px;
+    padding:0px 0.5rem;
+    text-align: right;
+    background-color: #323232;
+    border-radius: 10px;
+    color: #FFF;
+    width:auto;
 }

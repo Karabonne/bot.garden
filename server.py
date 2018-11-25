@@ -25,20 +25,11 @@ app.jinja_env.undefined = StrictUndefined
 def show_index():
     """TODO: Main page - shows a stream of bot posts."""
 
-    bots = Bot.query.all()
-    return render_template("homepage.html",bots=bots)
-
-@app.route('/user')
-def show_user_tab():
-    """Shows the page used for the user tab."""
-
-    return render_template("user.html", user=user)
+    return render_template("base.html")
 
 @app.route('/user/<user_id>')
 def show_user_page(user_id):
     """TODO: Shows a user info page, including list of user's bots."""
-
-    user = User.query.get(user_id)
 
     return render_template("user.html",
                               user=user)
@@ -53,7 +44,6 @@ def show_bot_page(bot_id):
     return render_template("bot.html",
                             bot=bot)
 
-
 @app.route('/directory')
 def show_bot_directory():
     """Shows a bot directory."""
@@ -61,6 +51,14 @@ def show_bot_directory():
     bots = Bot.query.all()
 
     return render_template("directory.html", bots=bots)
+
+@app.route('/feed')
+def show_feed():
+    """Shows a list of posts."""
+
+    posts = Post.query.all()
+
+    return render_template("feed.html", posts=posts)
 
 
 # 2. USER REGISTRATION AND LOGIN SECTION ------------------
@@ -98,6 +96,11 @@ def process_reg():
 
     return redirect("/")
 
+@app.route("/login", methods=["GET"])
+def show_login_form():
+    """Displays a user registration form."""
+
+    return render_template("login.html")
 
 @app.route("/login", methods=["POST"])
 def login_user():

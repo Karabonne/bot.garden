@@ -1,15 +1,22 @@
+
 {% for bot in bots %}
+
 <div class="row">
-        <div class="card deep-purple lighten-3 z-depth-2 hoverable">
-            <span class="card-title center-align">
+    <div class="card deep-purple lighten-3 z-depth-2">
+            <div class="card-title">
                 <a href="/bot/{{ bot.bot_id }}">
-                  <span class="btn-floating grey darken-3"><span class="fas fa-{{ bot.bot_icon }}"></span></a>
+                  <span class="btn-floating center-align">
+                    <span class="fas fa-{{ bot.bot_icon }}"></span>
+                  </span>
+                </a>
                 {{ bot.bot_name }}
-            </span>
-        <blockquote class="hoverable">
-                    <em>{{ bot.bot_description }}</em>
-        </blockquote>
+            </div>
+            <div class="divider"></div>
+            <div class="card-content deep-purple lighten-4">
+              <div id="desc"><em><h6>{{ bot.bot_description }}</h6></em></div>
+            </div>
         </div>
 </div>
+
 {% endfor %}
 

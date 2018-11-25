@@ -1,24 +1,30 @@
-{% extends 'base.html' %}
-{% block content %}
+<div class="row">
+    <div class="card-panel deep-purple lighten-4 col s8 offset-s2">
+            <form action="/register" method="POST">
+        		<div class="input-field col s12">
+                    <input type="text" name="username" id="username" class="validate" required>
+                    <label for="username">Username</label>
+        		</div>
 
-<form action="/register" method="POST">
-	<p>
-		<label for="username">Username </label>
-		<input type="text" name="username" id="username" required>
-	</p>
-	<p>
-		<label for="password">Password </label>
-		<input type="password" name="password" id="password" required>
-	</p>
-	<p>
-      <label for="name">Icon </label> <a href="https://fontawesome.com/cheatsheet" target="_blank">?</a>
-      <input type="text" name="icon" id="icon" required>
-    </p>
-  	<p>
-		<label for="description">Short description of yourself </label>
-		<input type="text" name="password" id="description" required>
-	</p>
-		<input type="submit">
-</form>
+                <div class="input-field col s12">
+                    <input type="text" name="password" id="password" class="validate" required>
+                    <label for="password">Password</label>
+                </div>
 
-{% endblock %}
+                <div class="input-field col s12">
+                    <input type="text" name="icon" id="icon" class="validate" required>
+                    <label for="icon">Icon</label> <a href="https://fontawesome.com/cheatsheet" target="_blank">list of available icons</a>
+                </div>
+
+                <div class="input-field col s12">
+                    <input type="text" name="description" id="description" class="validate" required>
+                    <label for="description">Short description of yourself </label>
+                </div>
+        		<button class="btn waves-effect waves-light deep-purple lighten-3" type="submit" name="action">
+                    join
+                </button>
+                <p>
+            </form>
+        </div>
+    </div>
+</div>

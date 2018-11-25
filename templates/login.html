@@ -1,16 +1,21 @@
-{% extends 'base.html' %}
-{% block content %}
+<div class="row">
+    <div class="card-panel deep-purple lighten-4 col s8 offset-s2">
+            <form action="/login" method="POST">
+                <div class="input-field col s12">
+                    <input type="text" name="username" id="username" class="validate" required>
+                    <label for="username">Username</label>
+                </div>
 
-<form action="/login" method="POST">
-	<p>
-		<label for="username">username </label>
-		<input type="text" name="username" id="username" required>
-	</p>
-	<p>
-		<label for="password">Password </label>
-		<input type="password" name="password" id="password" required>
-	</p>
-		<input type="submit">
-</form>
+                <div class="input-field col s12">
+                    <input type="text" name="password" id="password" class="validate" required>
+                    <label for="password">Password</label>
+                </div>
 
-{% endblock %}
+                <button class="btn waves-effect waves-light deep-purple lighten-3" type="submit" name="action">
+                    log in
+                </button>
+                <p>
+            </form>
+        </div>
+    </div>
+</div>

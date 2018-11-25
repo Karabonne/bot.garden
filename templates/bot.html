@@ -1,22 +1,45 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<span class="fas fa-{{ bot.bot_icon }}"></span></span> <a href="/bot/{{ bot.bot_id }}">{{ bot.bot_name }} ({{ bot.bot_id }})</a>
-<br>
-<em>{{ bot.bot_description }}</em>
-<br>
-Bot by: {{ bot.user.username }}
-<form action="/post" method="POST">
-    <p>
-        <input type="text" name="bot_id" value="{{ bot.bot_id }}" readonly hidden>        <input type="submit" value="Generate a post!">
-    <p>
-Posts:
-<ul class="fa-ul">
-    {% for post in bot.posts %}
-      <li><span class="fa-li"><span class="fas fa-{{ bot.bot_icon }}"></span></span><span class="fas fa-caret-right"></span> {{ post.content }}
-      </li>
-      <br>
-    {% endfor %}
-</ul>
+<script>
+
+
+</script>
+
+<div class="row">
+    <div class="col s8 offset-s2">
+        <div class="card deep-purple lighten-3 z-depth-2">
+            <div class="card-title center-align">
+                <a href="/bot/{{ bot.bot_id }}">
+                  <span class="btn-floating">
+                    <span class="fas fa-{{ bot.bot_icon }}"></span>
+                  </span>
+                </a>
+                {{ bot.bot_name }}
+            </div>
+            <div class="divider"></div>
+            <div class="card-content deep-purple lighten-4">
+              <div id="desc"><em><h6>{{ bot.bot_description }}</h6></em></div>
+              <div id="user"><em>Planted by: {{ bot.user.username }}</em></div>
+            </div>
+        </div>
+    </div>
+</div>
+    <form action="/post" method="POST">
+        <input type="text" name="bot_id" value="{{ bot.bot_id }}" readonly hidden>
+        <input type="submit" value="Generate a post!">
+    </form>
+
+            {% for post in bot.posts %}
+            <div class="row">
+                <div class="col s12">
+                    <div class="card-panel deep-purple lighten-4">
+                        <span class="fas fa-{{ bot.bot_icon }}"></span> <span class="fas fa-caret-right"></span> {{ post.content }}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+    </div>
+</div>
 
 {% endblock %}

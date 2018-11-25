@@ -3,18 +3,14 @@
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<link rel="stylesheet" href="/static/css/styles.css">
 <link type="text/css" rel="stylesheet" href="/static/css/materialize.css"  media="screen,projection"/>
+<script type="text/javascript" src="/static/js/materialize.js"></script>
+<link rel="stylesheet" href="/static/css/styles.css">
 <script
   src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
-<script type="text/javascript">
 
-    $(document).ready(function(){
-        $('.sidenav').sidenav();
-    });
-</script>
 <head>
   <title>Project Test Page</title>
 </head>
@@ -24,44 +20,112 @@
 i'm truly sorry this is the case, but, you know - internet.</noscript>
 
 <body>
-
-  {% with messages = get_flashed_messages() %}
-    {% if messages %}
-      <ul class=flashes>
-      {% for message in messages %}
-        <li>{{ message }}</li>
-      {% endfor %}
-      </ul>
-    {% endif %}
-  {% endwith %}
-
-    <div class="container">
+    <div class="navbar-fixed">
         <nav>
-            <div class="nav-wrapper deep-purple lighten-3">
-              <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-              <ul class="tabs hide-on-med-and-down deep-purple lighten-3">
-                <li id="feed"><a>chatter</a></li>
-                <li id="directory"><a>directory</a></li>
-                <li id="user"><a>user</a></li>
+            <div class="nav-wrapper deep-purple lighten-3 center-align">
+              <ul class="tabs deep-purple lighten-3">
+                <li id="feed"><a><span class="fas fa-spa"></span> listen</a></li>
+                <li id="directory"><a>garden <span class="fas fa-leaf"></span></a></li>
+                {% if 'user_id' in session %}
+                  
+                  <li id="user"><a>user</a></li>
+
+                {% endif %}
               </ul>
             </div>
         </nav>
     </div>
-    <ul class="sidenav" id="mobile-demo">
-        <li><a href="sass.html">Sass</a></li>
-        <li><a href="badges.html">Components</a></li>
-        <li><a href="collapsible.html">Javascript</a></li>
-    </ul>
+
+
+    {% if 'user_id' in session %}
+
+      <script>
+        $( "#user" ).click(function() {
+          $("#content").load("/user/{{ session['user_id'] }}");
+        });
+      </script>
+
+      <div class="fixed-action-btn">
+        <div class="btn-floating btn-large waves-effect waves-light">
+          <span class="fas fa-seedling"></span>
+        </div>
+        <ul>
+          <li id="logout"><a class="btn-floating"><span class="fas fa-user-minus"></span></a>
+            <div class="btn-floating mobile-fab-tip modal-trigger">logout</div></li>
+          <li id="create"><a class="btn-floating"><span class="fas fa-atom"></span></a>
+            <div class="btn-floating mobile-fab-tip modal-trigger">create</div></li>
+        </ul>
+      </div>
+    {% else %}
+      <div class="fixed-action-btn">
+        <div class="btn-floating btn-large waves-effect waves-light">
+          <span class="fas fa-user-edit"></span>
+        </div>
+        <ul>
+          <li id="login"><a class="btn-floating"><span class="fas fa-user-circle"></span></a>
+            <a href="#" class="btn-floating mobile-fab-tip modal-trigger">login</a></li>
+          <li id="register"><a class="btn-floating"><span class="fas fa-user-plus"></span></a>
+            <a href="#" class="btn-floating mobile-fab-tip modal-trigger">register</a></li>
+        </ul>
+      </div>
+    {% endif %}
+
     <div class="container">
-      <div class="content">
+
+      <div id="content">
+        {% block content %}
+        {% endblock %}
       </div>
 
     </div>
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <script>
+        M.toast({html: '{{ message }}', classes: 'rounded'});
+      </script>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
 </body>
-<script type="text/javascript" src="/static/js/materialize.js"></script>
+
 <script>
-$( "#other" ).click(function() {
-  $( "#target" ).click();
+
+$( "#feed" ).click(function() {
+  $("#content").load("/feed");
 });
+
+$( "#directory" ).click(function() {
+  $("#content").load("/directory");
+});
+
+$( "#login" ).click(function() {
+  $("#content").load("/login");
+});
+
+$( "#register" ).click(function() {
+  $("#content").load("/register");
+});
+
+$( "#logout" ).click(function() {
+  $("#content").load("/logout");
+});
+
+$( "#create" ).click(function() {
+  $("#content").load("/create");
+});
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.fixed-action-btn');
+    var instances = M.FloatingActionButton.init(elems, {
+      direction: 'top',
+      hoverEnabled: false
+    });
+  });
 </script>
 </html>

@@ -1,45 +1,37 @@
-{% extends 'base.html' %}
-{% block content %}
+<form action="/create" method="POST" enctype="multipart/form-data">
+  <p>Build-a-bot!</p>
+  <p>This builds a bot from a <em>current</em> sampling of tweets.
+    Currently, this will read the last 3200 tweets from the account.
+  </p>
+	<p>
+		<label for="name">Name </label>
+		<input type="text" name="name" id="name" required>
+	</p>
+  <p>
+    <label for="name">Icon </label> <a href="https://fontawesome.com/cheatsheet" target="_blank">?</a>
+    <input type="text" name="icon" id="icon" required>
+  </p>
+	<p>
+		<label for="description">Short description </label>
+		<input type="text" name="description" id="description" required>
+	</p>
+  <p>
+    <label for="type">Source type</label>
+    <select id="type" name="type">
+      <option value="twitter">Twitter</option>
+      <option value="nltk">NLTK</option>
+      <option value="text_file">Upload a text file</option>
+    </select>
+  <p>
+		<label for="source">Data source </label><br>
+    <input type="text" name="source" id="source"><br>
+    <input type="file" id="text_file" name="text_file"
+     accept=".txt" multiple><p>
+    Twitter: Gimme a username - the stuff <em>after</em> the @.<br>
+    NLTK: Select an <samp>id</samp> from the list <a href="http://www.nltk.org/nltk_data/">here</a>.<br>
+    Text files: Works best with files that contain big strings of text. .txt
+    files only, please~<br>
+	</p>
+		<input type="submit">
+</form>
 
-{% if 'user_id' in session %}
-  <form action="/create" method="POST" enctype="multipart/form-data">
-    <p>Build-a-bot!</p>
-    <p>This builds a bot from a <em>current</em> sampling of tweets.
-      Currently, this will read the last 3200 tweets from the account.
-    </p>
-  	<p>
-  		<label for="name">Name </label>
-  		<input type="text" name="name" id="name" required>
-  	</p>
-    <p>
-      <label for="name">Icon </label> <a href="https://fontawesome.com/cheatsheet" target="_blank">?</a>
-      <input type="text" name="icon" id="icon" required>
-    </p>
-  	<p>
-  		<label for="description">Short description </label>
-  		<input type="text" name="description" id="description" required>
-  	</p>
-    <p>
-      <label for="type">Source type</label>
-      <select id="type" name="type">
-        <option value="twitter">Twitter</option>
-        <option value="nltk">NLTK</option>
-        <option value="text_file">Upload a text file</option>
-      </select>
-    <p>
-  		<label for="source">Data source </label><br>
-      <input type="text" name="source" id="source"><br>
-      <input type="file" id="text_file" name="text_file"
-       accept=".txt" multiple><p>
-      Twitter: Gimme a username - the stuff <em>after</em> the @.<br>
-      NLTK: Select an <samp>id</samp> from the list <a href="http://www.nltk.org/nltk_data/">here</a>.<br>
-      Text files: Works best with files that contain big strings of text. .txt
-      files only, please~<br>
-  	</p>
-  		<input type="submit">
-  </form>
-  {% else %}
-  <h3>Please log in to create a bot.</h3>
-{% endif %}
-
-{% endblock %}
