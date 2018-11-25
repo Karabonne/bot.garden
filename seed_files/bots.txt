@@ -1,6 +1,6 @@
-1|1|robo-kara|robot|beep boop, hello i am kara
+1|1|memory-dickinson|leaf|emily dickinson, remixed
 1|2|robo-kid|users|kid jokes, made by robot kids
 2|3|robo-hackbright!|laptop-code|change the ratio of robots to humans
-2|4|the internet|tty|what if the internet were a bot
-3|5|biblebot|cross|it's the bible.....?
-3|6|portugal, the bot|futbol|beleza?
+2|4|sylvia math|sad-cry|generative despair!
+3|5|karl the robo-fog|cloud-moon|if fog could talk, and also if it were a weird robot
+3|6|QI on the fly|search|interesting 'facts'...?

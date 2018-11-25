@@ -109,7 +109,10 @@ def add_bots():
 
     db.session.commit()
 
-
+def add_posts():
+    """Generate a number of sample posts."""
+    
+    pass
 
 if __name__ == "__main__":
 

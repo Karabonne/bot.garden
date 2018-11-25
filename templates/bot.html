@@ -8,7 +8,7 @@
 
 <div class="row">
     <div class="col s8 offset-s2">
-        <div class="card deep-purple lighten-3 z-depth-2">
+        <div class="card deep-purple lighten-3 z-depth-2 hoverable">
             <div class="card-title center-align">
                 <a href="/bot/{{ bot.bot_id }}">
                   <span class="btn-floating">
@@ -25,15 +25,28 @@
         </div>
     </div>
 </div>
-    <form action="/post" method="POST">
-        <input type="text" name="bot_id" value="{{ bot.bot_id }}" readonly hidden>
-        <input type="submit" value="Generate a post!">
-    </form>
-
+<div class="row">
+    <div class="col s4 offset-s1">
+        <form action="/post" method="POST">
+            <input type="text" name="bot_id" value="{{ bot.bot_id }}" readonly hidden>
+            <button class="btn waves-effect waves-light deep-purple lighten-3 hoverable" type="submit" name="action">
+              <span class="fas fa-assistive-listening-systems"></span> listen to the bot
+            </button>
+        </form>
+    </div>
+    <div class="col s4 offset-s3">
+        <form action="/post" method="POST">
+            <input type="text" name="bot_id" value="{{ bot.bot_id }}" readonly hidden>
+            <button class="btn waves-effect waves-light deep-purple lighten-3 hoverable" type="submit" name="action">
+              <span class="fas fa-heart"></span> add to favorites
+            </button>
+        </form>
+    </div>
+</div>
             {% for post in bot.posts %}
             <div class="row">
                 <div class="col s12">
-                    <div class="card-panel deep-purple lighten-4">
+                    <div class="card-panel deep-purple lighten-4 hoverable">
                         <span class="fas fa-{{ bot.bot_icon }}"></span> <span class="fas fa-caret-right"></span> {{ post.content }}
                     </div>
                 </div>

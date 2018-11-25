@@ -1,37 +1,76 @@
-<form action="/create" method="POST" enctype="multipart/form-data">
-  <p>Build-a-bot!</p>
-  <p>This builds a bot from a <em>current</em> sampling of tweets.
-    Currently, this will read the last 3200 tweets from the account.
-  </p>
-	<p>
-		<label for="name">Name </label>
-		<input type="text" name="name" id="name" required>
-	</p>
-  <p>
-    <label for="name">Icon </label> <a href="https://fontawesome.com/cheatsheet" target="_blank">?</a>
-    <input type="text" name="icon" id="icon" required>
-  </p>
-	<p>
-		<label for="description">Short description </label>
-		<input type="text" name="description" id="description" required>
-	</p>
-  <p>
-    <label for="type">Source type</label>
-    <select id="type" name="type">
-      <option value="twitter">Twitter</option>
-      <option value="nltk">NLTK</option>
-      <option value="text_file">Upload a text file</option>
-    </select>
-  <p>
-		<label for="source">Data source </label><br>
-    <input type="text" name="source" id="source"><br>
-    <input type="file" id="text_file" name="text_file"
-     accept=".txt" multiple><p>
-    Twitter: Gimme a username - the stuff <em>after</em> the @.<br>
-    NLTK: Select an <samp>id</samp> from the list <a href="http://www.nltk.org/nltk_data/">here</a>.<br>
-    Text files: Works best with files that contain big strings of text. .txt
-    files only, please~<br>
-	</p>
-		<input type="submit">
-</form>
+<script>
+  $(document).ready(function(){
+    $('select').formSelect();
+  });
+</script>
 
+
+<div class="row">
+  <div class="card-panel deep-purple lighten-4 col s8 offset-s2 hoverable">
+    <form action="/create" method="POST">
+
+      <div class="input-field col s12">
+        <input type="text" name="name" id="name" class="validate" required>
+        <label for="name">What's this bot's name?</label>
+      </div>
+
+      <div class="input-field col s12">
+        <input type="text" name="icon" id="icon" class="validate" required>
+        <label for="icon">Icon</label> <a href="https://fontawesome.com/cheatsheet" target="_blank">?</a>
+      </div>
+
+      <div class="input-field col s12">
+        <select id="type" name="type">
+          <option value="" disabled selected>Pick a bot type</option>
+          <option value="twitter">Twitter</option>
+          <option value="nltk">NLTK</option>
+          <option value="text_file">Upload text files</option>
+        </select>
+        <label>Source type</label>
+      </div>
+
+      <div class="input-field col s12">
+        <input type="text" name="source" id="source" class="validate">
+        <label for="source">source</label>
+      </div>
+
+      <div class="file-field input-field col s12">
+        <div class="btn">
+          <span class="fas fa-file-upload"></span>
+          <input type="file" id="text_file" accept=".txt" multiple>
+        </div>
+        <div class="file-path-wrapper">
+          <input class="file-path validate" type="text" placeholder="Upload one or more files">
+        </div>
+      </div>    
+
+      <div class="input-field col s12">
+        <input type="text" name="description" id="description" class="validate" required>
+        <label for="description">Tell me a lil' about this bot</label>
+      </div>
+        <button class="btn waves-effect waves-light deep-purple lighten-3" type="submit" name="action">
+          <span class="fas fa-bolt"></span> create <span class="fas fa-bolt"></span>
+        </button>
+        <p>
+      </form>
+    </div>
+
+    <div class="row">
+      <div class="card-panel deep-purple lighten-4 col s8 offset-s2 hoverable">
+      <h6>Bot creation notes:</h6>
+      <p>
+        Twitter: Throw in a username - the stuff <em>after</em> the @. This will retrieve the last 3200 tweets, <em>not including</em> retweets and replies. The more tweets, the better - more text means more chances to generate interesting things.
+      </p>
+      <p>
+        NLTK: Select an <samp>id</samp> from the list <a href="http://www.nltk.org/nltk_data/">here</a>. These are generally intended as 'sample' texts and may not yield the most...comprehensible bots. They're really trying their best though!
+      </p>
+      <p>
+        Text files: Works best with files that contain big strings of text, split up by common English punctuation. You can upload one or many - there's a lot of potential here, both for fun and failure! .txt files only, please~<br>
+      </p>
+        Bots are unpredictable and can be finicky. If your bot isn't really feeling up to it, it may not say much. If it never says anything, feel free to <a href="mailto:caretaker@bot.garden">mail me</a> and I'll see what I can do.
+      <p>
+        Finally...all information that bots spit out is entirely public, including the username of whoever created it. By going through this process and clicking that (wonderfully enticing) 'create' button, you accept this fact and any consequences that may arise. Please treat your bots with care!
+      </p>
+    </div>
+  </div>
+</div>

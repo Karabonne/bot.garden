@@ -7,6 +7,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 from datetime import date, datetime
 from model import Bot, User, Post, Source, connect_to_db, db
 from processing import process_source
+from config import FLASK_KEY
 import markovify
 import os
 
@@ -14,7 +15,7 @@ app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'
 
 # Required to use Flask sessions and the debug toolbar
-app.secret_key = "ABC123456hackbright"
+app.secret_key = FLASK_KEY
 
 # catches Jinja2 erorrs
 app.jinja_env.undefined = StrictUndefined
@@ -30,6 +31,8 @@ def show_index():
 @app.route('/user/<user_id>')
 def show_user_page(user_id):
     """TODO: Shows a user info page, including list of user's bots."""
+
+    user = User.query.get(user_id)
 
     return render_template("user.html",
                               user=user)
@@ -166,6 +169,10 @@ def create_bot():
 
     content = process_source(content_type, data_source)
 
+    if content == False:
+        flash('Error in bot creation! Make sure your sources are correct?')
+        return redirect("/")
+
     source = Source(content_type=content_type,
                     content_source=data_source,
                     content=content)
@@ -197,8 +204,15 @@ def create_post():
 
     bot_id = request.form.get('bot_id')
     bot = Bot.query.get(bot_id)
-    chains = markovify.Text(bot.source.content)
-    text = chains.make_sentence()
+    
+    try:
+        chains = markovify.Text(bot.source.content)
+        text = chains.make_sentence()
+
+    except KeyError as error:
+
+        print(error)
+        text = None
 
     if text == None:
         text = "*the bot hums gently*"
@@ -214,15 +228,15 @@ def create_post():
 
 
 if __name__ == "__main__":
-    # We have to set debug=True here, since it has to be True at the
-    # point that we invoke the DebugToolbarExtension
-    app.debug = True
+    
+    # set debug mode for testing
+    #app.debug = True
     # make sure templates, etc. are not cached in debug mode
-    app.jinja_env.auto_reload = app.debug
+    #app.jinja_env.auto_reload = app.debug
 
     connect_to_db(app)
 
     # Use the DebugToolbar
-    DebugToolbarExtension(app)
+    #DebugToolbarExtension(app)
 
     app.run(port=5000, host='0.0.0.0')

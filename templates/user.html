@@ -1,41 +1,33 @@
 <div class="row">
-  <div id="user" class="col s8">
-    {% if 'user_id' in session %}
-      <a href="/user/{{ session['user_id'] }}">{{ session['username'] }}</a>
-        <form action="/logout" method="GET">
-          <input type="submit" value="Log Out">
-        </form>
-
-      Username: {{ user.username }}<br>
-      Info: {{ user.user_description }}<br>
-
-      Bots:
-      <ul>
-        {% for bot in user.bots %}
-              <span class="fas fa-{{ bot.bot_icon }}"></span>
-          <li>Bot ID: {{ bot.bot_id }}</li>
-              <li>Bot Name: {{ bot.bot_name }}</li>
-          <li>Bot Description: {{ bot.bot_description }}</li>
-          <br>
-        {% endfor %}
-      </ul>
-    {% else %}
-      <form action="/login" method="POST">
-          <div class="row">
-              <div class="input-field col s8">
-                <input type="text" name="username" id="username" required>
-                <label for="username">Username</label>
-              </div>
-          </div>
-          <div class="row">
-              <div class="input-field col s8">
-                <input class="validate" type="password" name="password" id="password" required>
-                <label for="password">Password</label>
-              </div>
-          </div>
-
-        <input type="submit" value="Log In">
-      </form>
-    {% endif %}
+  <div class="col s8 offset-s2">
+    <div class="card deep-purple lighten-3 z-depth-2 hoverable">
+      <div class="card-title center-align">
+        <span class="btn-floating">
+          <span class="fas fa-{{ user.user_icon }}"></span>
+        </span>
+        {{ user.username }}
+      </div>
+      <div class="divider"></div>
+      <div class="card-content deep-purple lighten-4">
+        <div id="desc"><em><h6>{{ user.user_description }}</h6></em></div>
+      </div>
+    </div>
   </div>
 </div>
+
+{% for bot in user.bots %}
+  <div class="row">
+    <div class="col s6 offset-s3">
+      <a href="/bot/{{ bot.bot_id }}">
+        <div class="card-panel deep-purple lighten-4 hoverable">
+          <ul>
+              <span class="fas fa-{{ bot.bot_icon }}"></span>
+              <li>ID: {{ bot.bot_id }}</li>
+              <li>Name: {{ bot.bot_name }}</li>
+              <li>Description: {{ bot.bot_description }}</li>
+          </ul>
+        </div>
+      </a>
+    </div>
+  </div>
+{% endfor %}

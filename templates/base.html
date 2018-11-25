@@ -1,15 +1,16 @@
 <!doctype html>
 <html>
 
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link type="text/css" rel="stylesheet" href="/static/css/materialize.css"  media="screen,projection"/>
 <script type="text/javascript" src="/static/js/materialize.js"></script>
 <link rel="stylesheet" href="/static/css/styles.css">
-<script
-  src="https://code.jquery.com/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>
+
 
 <head>
   <title>Project Test Page</title>
@@ -50,7 +51,7 @@ i'm truly sorry this is the case, but, you know - internet.</noscript>
           <span class="fas fa-seedling"></span>
         </div>
         <ul>
-          <li id="logout"><a class="btn-floating"><span class="fas fa-user-minus"></span></a>
+          <li id="logout"><a href="/logout" class="btn-floating"><span class="fas fa-user-minus"></span></a>
             <div class="btn-floating mobile-fab-tip modal-trigger">logout</div></li>
           <li id="create"><a class="btn-floating"><span class="fas fa-atom"></span></a>
             <div class="btn-floating mobile-fab-tip modal-trigger">create</div></li>
@@ -109,10 +110,6 @@ $( "#login" ).click(function() {
 
 $( "#register" ).click(function() {
   $("#content").load("/register");
-});
-
-$( "#logout" ).click(function() {
-  $("#content").load("/logout");
 });
 
 $( "#create" ).click(function() {

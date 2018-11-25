@@ -1,6 +1,6 @@
-twitter|karabonne
+twitter|E_Dickinson
 twitter|KidsWriteJokes
 twitter|hackbright
-nltk|webtext
-nltk|genesis
-nltk|floresta
+twitter|itssylviaplath
+twitter|KarlTheFog
+twitter|qikipedia

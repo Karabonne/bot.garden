@@ -82,7 +82,7 @@ def get_tweets(username):
 
         except TwitterHTTPError as error:
             print(error)
-            break
+            return False
 
     return text_list
 
@@ -96,7 +96,11 @@ def process_source(content_type, content_source):
     elif content_type == "twitter":
 
         tweets = get_tweets(content_source)
-        content = ' '.join(tweets.replace('\n', ' ').split())
+        if tweets == False:
+            return False
+
+        content = ' '.join(tweets)
+        content = content.replace('\n', ' ').split()
 
         for item in content:
             if 'http' in item or '@' in item:
@@ -114,5 +118,6 @@ def process_source(content_type, content_source):
     else:
 
         print("Invalid source! Aborting...")
+        return False
 
     return content
