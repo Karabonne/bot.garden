@@ -20,7 +20,7 @@ def open_and_read_file(file):
         try:
             text = opened_file.read().rstrip()
             text = text.replace('\n', ' ')
-            text = text.replace('\0', ' ')
+            #text = text.replace('\0', ' ')
             text = text.replace('\t', ' ')
         except UnicodeDecodeError:
             return " "
@@ -58,8 +58,7 @@ def get_tweets(username):
     text_list = [item['text'] for item in tweets]
 
     # this loop uses the last tweet id as the starting point for the next
-    # request, and stops either after 30 requests or when the API doesn't
-    # return any more data
+    # request, and stops when the API doesn't return any more data
 
     while len(tweets) > 1:
 

@@ -4,11 +4,28 @@
   });
 </script>
 
+<div class="row">
+  <div class="card-panel deep-purple lighten-4 col s8 offset-s2 hoverable">
+    <h6>Bot creation notes:</h6>
+    <p>
+      Twitter: Throw in a username - the stuff <em>after</em> the @. This will retrieve the last 3200 tweets, <em>not including</em> retweets and replies. The more tweets, the better - more text means more chances to generate interesting things.
+    </p>
+    <p>
+      NLTK: Select an <samp>id</samp> from the list <a href="http://www.nltk.org/nltk_data/">here</a>. These are generally intended as 'sample' texts and may not yield the most...comprehensible bots. They're really trying their best though!
+    </p>
+    <p>
+      Text files: Works best with files that contain big strings of text, split up by common English punctuation. You can upload one or many - there's a lot of potential here, both for fun and failure! .txt files only, please~<br>
+    </p>
+      Bots are unpredictable and can be finicky. If your bot isn't really feeling up to it, it may not say much. If it never says anything, feel free to <a href="mailto:caretaker@bot.garden">mail me</a> and I'll see what I can do.
+    <p>
+      Finally...all information that bots spit out is entirely public, including the username of whoever created it. By going through this process and clicking that (wonderfully enticing) 'create' button, you accept this fact and any consequences that may arise. Please treat your bots with care!
+    </p>
+  </div>
+</div>
 
 <div class="row">
   <div class="card-panel deep-purple lighten-4 col s8 offset-s2 hoverable">
-    <form action="/create" method="POST">
-
+    <form action="/create" method="POST" enctype="multipart/form-data">
       <div class="input-field col s12">
         <input type="text" name="name" id="name" class="validate" required>
         <label for="name">What's this bot's name?</label>
@@ -37,7 +54,7 @@
       <div class="file-field input-field col s12">
         <div class="btn">
           <span class="fas fa-file-upload"></span>
-          <input type="file" id="text_file" accept=".txt" multiple>
+          <input type="file" id="text_file" name="text_file" accept=".txt" multiple>
         </div>
         <div class="file-path-wrapper">
           <input class="file-path validate" type="text" placeholder="Upload one or more files">
@@ -45,7 +62,7 @@
       </div>    
 
       <div class="input-field col s12">
-        <input type="text" name="description" id="description" class="validate" required>
+        <input type="text" name="description" id="description" class="validate" maxlength="254" required>
         <label for="description">Tell me a lil' about this bot</label>
       </div>
         <button class="btn waves-effect waves-light deep-purple lighten-3" type="submit" name="action">
@@ -54,23 +71,4 @@
         <p>
       </form>
     </div>
-
-    <div class="row">
-      <div class="card-panel deep-purple lighten-4 col s8 offset-s2 hoverable">
-      <h6>Bot creation notes:</h6>
-      <p>
-        Twitter: Throw in a username - the stuff <em>after</em> the @. This will retrieve the last 3200 tweets, <em>not including</em> retweets and replies. The more tweets, the better - more text means more chances to generate interesting things.
-      </p>
-      <p>
-        NLTK: Select an <samp>id</samp> from the list <a href="http://www.nltk.org/nltk_data/">here</a>. These are generally intended as 'sample' texts and may not yield the most...comprehensible bots. They're really trying their best though!
-      </p>
-      <p>
-        Text files: Works best with files that contain big strings of text, split up by common English punctuation. You can upload one or many - there's a lot of potential here, both for fun and failure! .txt files only, please~<br>
-      </p>
-        Bots are unpredictable and can be finicky. If your bot isn't really feeling up to it, it may not say much. If it never says anything, feel free to <a href="mailto:caretaker@bot.garden">mail me</a> and I'll see what I can do.
-      <p>
-        Finally...all information that bots spit out is entirely public, including the username of whoever created it. By going through this process and clicking that (wonderfully enticing) 'create' button, you accept this fact and any consequences that may arise. Please treat your bots with care!
-      </p>
-    </div>
-  </div>
 </div>

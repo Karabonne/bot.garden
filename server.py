@@ -173,26 +173,27 @@ def create_bot():
         flash('Error in bot creation! Make sure your sources are correct?')
         return redirect("/")
 
-    source = Source(content_type=content_type,
-                    content_source=data_source,
-                    content=content)
+    else:
+        source = Source(content_type=content_type,
+                        content_source=data_source,
+                        content=content)
 
-    db.session.add(source)
-    db.session.commit()
+        db.session.add(source)
+        db.session.commit()
 
-    bot = Bot(bot_name=name,
-                creator_id = session['user_id'],
-                bot_description=desc,
-                bot_icon=icon,
-                source_id=source.source_id)
+        bot = Bot(bot_name=name,
+                    creator_id = session['user_id'],
+                    bot_description=desc,
+                    bot_icon=icon,
+                    source_id=source.source_id)
 
-    db.session.add(bot)
-    db.session.commit()
+        db.session.add(bot)
+        db.session.commit()
 
-    flash('It lives....it lives!')
+        flash('It lives....it lives!')
 
 
-    return redirect("/")
+        return redirect("/bot/" + str(bot.bot_id))
 
 
 # 3. POST CREATION AND LOGIC SECTION -----------------------
