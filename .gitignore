@@ -1,11 +1,10 @@
 env/
 *pyc*
 testfiles/
-config.py
+config.py*
 planning
 testing*
 TODO*
-markov.py
-markov.pyc
 uploads/*
+flask.log
 _test*
