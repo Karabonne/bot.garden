@@ -25,11 +25,11 @@ i'm truly sorry this is the case, but, you know - internet.</noscript>
         <nav>
             <div class="nav-wrapper deep-purple lighten-3 center-align">
               <ul class="tabs deep-purple lighten-3">
-                <li id="feed"><a><span class="fas fa-spa"></span> listen</a></li>
-                <li id="directory"><a><span class="fas fa-leaf"></span> garden</a></li>
+                <li id="feed"><a href="/feed"><span class="fas fa-spa"></span> listen</a></li>
+                <li id="directory"><a href="/directory"><span class="fas fa-leaf"></span> garden</a></li>
                 {% if 'user_id' in session %}
                   
-                  <li id="user"><a><span class="fas fa-cloud-sun-rain"></span> user</a></li>
+                  <li id="user"><a href="/user/{{ session['user_id'] }}"><span class="fas fa-cloud-sun-rain"></span> user</a></li>
 
                 {% endif %}
               </ul>
@@ -39,12 +39,6 @@ i'm truly sorry this is the case, but, you know - internet.</noscript>
 
 
     {% if 'user_id' in session %}
-
-      <script>
-        $( "#user" ).click(function() {
-          $("#content").load("/user/{{ session['user_id'] }}");
-        });
-      </script>
 
       <div class="fixed-action-btn">
         <div class="btn-floating btn-large waves-effect waves-light">
@@ -76,7 +70,7 @@ i'm truly sorry this is the case, but, you know - internet.</noscript>
       <div id="content">
 
         {% block content %}
-        
+
         <div class="row" id="about">
           <div class="col s8 offset-s2">
             <div class="card deep-purple lighten-3 z-depth-2 hoverable">
@@ -141,13 +135,13 @@ i'm truly sorry this is the case, but, you know - internet.</noscript>
 
 <script>
 
-$( "#feed" ).click(function() {
-  $("#content").load("/feed");
-});
+// $( "#feed" ).click(function() {
+//   $("#content").load("/feed");
+// });
 
-$( "#directory" ).click(function() {
-  $("#content").load("/directory");
-});
+// $( "#directory" ).click(function() {
+//   $("#content").load("/directory");
+// });
 
 $( "#login" ).click(function() {
   $("#content").load("/login");
