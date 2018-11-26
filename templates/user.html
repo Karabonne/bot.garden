@@ -18,16 +18,15 @@
 {% for bot in user.bots %}
   <div class="row">
     <div class="col s6 offset-s3">
-      <a href="/bot/{{ bot.bot_id }}">
         <div class="card-panel deep-purple lighten-4 hoverable">
-          <ul>
-              <span class="fas fa-{{ bot.bot_icon }}"></span>
-              <li>ID: {{ bot.bot_id }}</li>
-              <li>Name: {{ bot.bot_name }}</li>
-              <li>Description: {{ bot.bot_description }}</li>
-          </ul>
-        </div>
-      </a>
+        <ul>
+            <a href="/bot/{{ bot.bot_id }}">
+            <span class="fas fa-{{ bot.bot_icon }}"></a></span>
+            <li>ID: {{ bot.bot_id }}</li>
+            <li>Name: {{ bot.bot_name }}</li>
+            <li>Description: {{ bot.bot_description }}</li>
+        </ul>
+      </div>
     </div>
   </div>
 {% endfor %}

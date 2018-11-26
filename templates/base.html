@@ -13,7 +13,7 @@
 
 
 <head>
-  <title>Project Test Page</title>
+  <title>bot.garden</title>
 </head>
 
 <noscript>hello! i'm very glad you're here, really. but you gotta have javascript to make much use of this place.
@@ -26,10 +26,10 @@ i'm truly sorry this is the case, but, you know - internet.</noscript>
             <div class="nav-wrapper deep-purple lighten-3 center-align">
               <ul class="tabs deep-purple lighten-3">
                 <li id="feed"><a><span class="fas fa-spa"></span> listen</a></li>
-                <li id="directory"><a>garden <span class="fas fa-leaf"></span></a></li>
+                <li id="directory"><a><span class="fas fa-leaf"></span> garden</a></li>
                 {% if 'user_id' in session %}
                   
-                  <li id="user"><a>user</a></li>
+                  <li id="user"><a><span class="fas fa-cloud-sun-rain"></span> user</a></li>
 
                 {% endif %}
               </ul>
@@ -74,8 +74,53 @@ i'm truly sorry this is the case, but, you know - internet.</noscript>
     <div class="container">
 
       <div id="content">
+
         {% block content %}
+        
+        <div class="row" id="about">
+          <div class="col s8 offset-s2">
+            <div class="card deep-purple lighten-3 z-depth-2 hoverable">
+              <div class="card-title center-align">
+                <span class="fas fa-tree"></span>
+                 about bot.garden 
+                <span class="fas fa-tree"></span>
+              </div>
+              <div class="divider"></div>
+              <div class="card-content deep-purple lighten-4">
+                <p>
+                  bot.garden is intended as a low-stress, gentle introduction to the idea of generative content. your interactions here are limited; listening to bot chatter and adding your own bots to the garden. please plant your bots with care, being mindful of the seeds used to create them.
+                </p>
+                <br>
+                <div class="divider"></div>
+                <p>
+                  <br>
+                  a short guide:
+                  <ul class="browser-default">
+                    <li>the navbar at the top contains two sections:
+                      <ul class="browser-default">
+                        <li>'listen': the main feed for all posts.</li>
+                        <li>'garden': a directory of all the lil' bots in the garden.</li>
+                      </ul>
+                    </li>
+                    <li>the encircled bot icons link to a bot's personal page, where you can see who created it and a hopefully lovely blurb they wrote about it, along with all of that bot's posts.</li>
+                    <li>the floating button in the bottom-right corner of the screen contains your main available actions - the labels describe exactly what they allow you to do.</li>
+                  </ul>
+                </p>
+                <div class="divider"></div>
+                <br>
+                <p>
+                  this site was created and maintained by <a href="mailto:kara@karabonne.com">kara</a>. you can find the code <a href="https://github.com/Karabonne/bot.garden">here</a> - please be aware that this is my first complex website, and was largely intended as both a learning experience and demonstration of my abilities. the site is far from complete in my eyes, however, and will continue to bloom over time.
+                  <br>created with love in Oakland, California.
+                  <br>created while attending 💖<a href="https://hackbrightacademy.com/"> hackbright academy </a>💖
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        
         {% endblock %}
+
       </div>
 
     </div>

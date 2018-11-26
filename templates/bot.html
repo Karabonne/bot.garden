@@ -1,11 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<script>
-
-
-</script>
-
 <div class="row">
     <div class="col s8 offset-s2">
         <div class="card deep-purple lighten-3 z-depth-2 hoverable">
@@ -35,12 +30,12 @@
         </form>
     </div>
     <div class="col s4 offset-s3">
-        <form action="/post" method="POST">
+<!--         <form action="/post" method="POST"> -->
             <input type="text" name="bot_id" value="{{ bot.bot_id }}" readonly hidden>
             <button class="btn waves-effect waves-light deep-purple lighten-3 hoverable" type="submit" name="action">
               <span class="fas fa-heart"></span> add to favorites
             </button>
-        </form>
+<!--         </form> -->
     </div>
 </div>
             {% for post in bot.posts %}
