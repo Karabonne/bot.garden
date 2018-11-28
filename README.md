@@ -17,4 +17,10 @@ a short guide:
 
 ### 🤖 code usage 🌱
 
-1. add your twitter developer keys to the config.py
+1. create a file in the main project folder titled 'config.py'. this file should contain four things:
+  - your twitter developer `access_token`, `token_secret`, `api_key`, and `api_secret`
+  - a constant named `FLASK_KEY` that contains a string of your choosing (for using flask debug mode)
+  
+2. run `pip3 install -r requirements.txt` to get all the dependencies
+
+3. create a psql DB, then run 
