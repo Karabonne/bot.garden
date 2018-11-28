@@ -205,7 +205,7 @@ def create_post():
 
     bot_id = request.form.get('bot_id')
     bot = Bot.query.get(bot_id)
-    
+
     try:
         chains = markovify.Text(bot.source.content)
         text = chains.make_sentence()
@@ -216,7 +216,8 @@ def create_post():
         text = None
 
     if text == None:
-        text = "*the bot hums gently*"
+        flash('*the bot hums gently*')
+        return redirect("/bot/" + bot_id)
 
     post = Post(bot_id=bot_id,
                 content=text)
@@ -229,7 +230,7 @@ def create_post():
 
 
 if __name__ == "__main__":
-    
+
     # set debug mode for testing
     #app.debug = True
     # make sure templates, etc. are not cached in debug mode

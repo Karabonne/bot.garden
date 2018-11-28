@@ -35,19 +35,6 @@ def add_users():
 
 
 def add_sources():
-    """Add sources to the database. Sources are built as follows:
-
-    1. read from input file, contains the following:
-        content_type|content_source
-    2. for twitter sources:
-            grab username from 'content_source', retrieve all tweets, collate
-            the text into one large string
-        for nltk sources:
-            retrieve corpus name from 'content_source', download from
-            nltk database if required, and use nltk functions to store corpus
-            as one large text file
-    3. add above to database
-    """
 
     print("Sources")
 
@@ -59,20 +46,7 @@ def add_sources():
         line = line.rstrip()
         content_type, content_source = line.split("|")
 
-        if content_type == "twitter":
-
-            content = ' '.join(get_tweets(content_source))
-
-        elif content_type == "nltk":
-
-            nltk.download(content_source)
-            text = getattr(nltk.corpus, content_source)
-            content =  ' '.join(text.words())
-
-        else:
-
-            print("Invalid source! Aborting...")
-            break
+        content = process_source(content_type, content_source)
 
         source = Source(content_type=content_type,
                                content_source=content_source,
@@ -111,7 +85,7 @@ def add_bots():
 
 def add_posts():
     """Generate a number of sample posts."""
-    
+
     pass
 
 if __name__ == "__main__":

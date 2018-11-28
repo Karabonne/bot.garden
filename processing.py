@@ -86,7 +86,20 @@ def get_tweets(username):
     return text_list
 
 def process_source(content_type, content_source):
+    """Add sources to the database. Sources are built as follows:
 
+    1. read from input file, contains the following:
+        content_type|content_source
+    2. for twitter sources:
+            grab username from 'content_source', retrieve all tweets, collate
+            the text into one large string
+        for nltk sources:
+            retrieve corpus name from 'content_source', download from
+            nltk database if required, and use nltk functions to store corpus
+            as one large text file
+    3. add above to database
+    """
+    
     if content_type == "text_file":
 
         content = process_files(content_source)
@@ -98,13 +111,18 @@ def process_source(content_type, content_source):
         if tweets == False:
             return False
 
-        content = ' '.join(tweets)
-        content = content.replace('\n', ' ').split()
+        term_list = ' '.join(tweets)
+        term_list = term_list.replace('\n', ' ').split()
 
-        for item in content:
-            if 'http' in item or '@' in item:
-                print(f"removing {item}")
-                content.remove(item)
+        content = []
+
+        for item in term_list:
+            if 'http' in item or 'https' in item:
+                print(item)
+            elif item[0] == '#' or item[0] == '@':
+                print(item)
+            else:
+                content.append(item)
 
         content = ' '.join(content)
 
