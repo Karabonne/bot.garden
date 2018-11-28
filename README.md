@@ -17,10 +17,19 @@ a short guide:
 
 ### 🤖 code usage 🌱
 
-1. create a file in the main project folder titled 'config.py'. this file should contain four things:
-  - your twitter developer `access_token`, `token_secret`, `api_key`, and `api_secret`
-  - a constant named `FLASK_KEY` that contains a string of your choosing (for using flask debug mode)
-  
-2. run `pip3 install -r requirements.txt` to get all the dependencies
+the code is currently provided as-is, with comments in the files serving as instructions - these will be updated and appended to soon!
 
-3. create a psql DB, then run 
+### 🤖 pull requests/suggestions 🌱
+
+both are welcome, but please be mindful that i'm a budding developer - this site was done entirely by me alone, with some minor outside suggestions. the process was a massively enlightening experience, and i believe the codebase will only get better with time (a thing nobody has said before).
+
+### 🤖 TODO/known issues 🌱
+
+- favorites aren't 100% implemented - the model exists and the UI is roughly in place, but the route/logic hasn't been created yet
+- mobile responsiveness is a bit akward and not terribly friendly
+- this hasn't been evaluated for accessibility; if you're someone that uses a screen reader, *please* let me know about your experiences with the site
+- the main feed currently loads/displays all posts in the database; obviously not ideal. pagination is somewhat in the works on the dev server, but not implemented at all here yet
+
+### 🤖 final 🌱
+
+please, share with your friends! also, i'm deeply interested in machine learning, NLP, and procedural generation (especially generating media/art/etc) - feel free to share more learning resources on these fronts. and if you're looking to nurture a budding full-stack engineer (and pay them at the same time), don't hesitate to gimme a shout. 💞
