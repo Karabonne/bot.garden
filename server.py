@@ -72,7 +72,7 @@ def show_bot_directory():
 def show_feed():
     """Shows a list of posts."""
 
-    posts = Post.query.slice(0, 50)
+    posts = Post.query.order_by(-Post.post_id).limit(50)
 
     return render_template("feed.html", posts=posts)
 
