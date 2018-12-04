@@ -61,12 +61,12 @@ class Bot(db.Model):
                                                       order_by=bot_id))
 
     posts = db.relationship("Post", cascade="all, delete-orphan",
-                               passive_deletes=True, single_parent=True,
-                               backref=db.backref('bot', order_by=bot_id))
+                            single_parent=True,
+                            backref=db.backref('bot', order_by=bot_id))
 
-    source = db.relationship("Source", cascade="all, delete-orphan",
-                               passive_deletes=True, single_parent=True,
-                               backref=db.backref('bot', order_by=bot_id))
+    source = db.relationship("Source", cascade="all, delete-orphan", 
+                            single_parent=True,
+                            backref=db.backref('bot', order_by=bot_id))
 
     def __repr__(self):
         """Provides basic bot info when printed."""
@@ -102,7 +102,7 @@ class Post(db.Model):
     __tablename__ = "posts"
 
     post_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    bot_id = db.Column(db.Integer, db.ForeignKey('bots.bot_id', ondelete='CASCADE'))
+    bot_id = db.Column(db.Integer, db.ForeignKey('bots.bot_id'))
     content = db.Column(db.Text, nullable=False)
     date_created = db.Column(db.DateTime, default=datetime.utcnow(), nullable=False)
 

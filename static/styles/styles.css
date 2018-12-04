@@ -28,6 +28,6 @@ body {
   }
 }
 
-#action_icon {
-
+.card .card-action {
+  padding: 0px;
 }

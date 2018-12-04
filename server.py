@@ -93,7 +93,7 @@ def process_reg():
                  user_description=desc)
         db.session.add(user)
         db.session.commit()
-        flash('Registration successful!')
+        flash('registration successful!')
     else:
         flash('username address already exists - try again?')
 
@@ -120,12 +120,12 @@ def login_user():
             # add user info to Flask session
             session['user_id'] = user.user_id
             session['username'] = user.username
-            flash('Successfully logged in!')
+            flash('welcome back!')
             return redirect("/")
         else:
-            flash('Invalid password!')
+            flash('invalid password!')
     else:
-        flash('User not found!')
+        flash('user not found!')
 
     return redirect("/")
 
@@ -170,7 +170,7 @@ def create_bot():
     content = process_source(content_type, data_source)
 
     if content == False:
-        flash('Error in bot creation! Make sure your sources are correct?')
+        flash('error in bot creation! make sure your sources are correct?')
         return redirect("/")
 
     else:
@@ -190,12 +190,32 @@ def create_bot():
         db.session.add(bot)
         db.session.commit()
 
-        flash('It lives....it lives!')
+        flash('bot planted!')
 
 
         return redirect("/bot/" + str(bot.bot_id))
 
+@app.route("/delete", methods=["POST"])
+def delete_bot():
+    """Removes a bot from the database."""
 
+    bot_id = request.form.get('bot_id')
+    bot = Bot.query.get(bot_id)
+
+    if session['user_id'] == bot.user.user_id:
+
+        db.session.delete(bot)
+        db.session.commit()
+
+        flash('bot pruned!')
+
+    else:
+
+        flash('error removing bot!')
+
+    return redirect("/")
+
+    
 # 3. POST CREATION AND LOGIC SECTION -----------------------
 
 
@@ -205,7 +225,7 @@ def create_post():
 
     bot_id = request.form.get('bot_id')
     bot = Bot.query.get(bot_id)
-
+    
     try:
         chains = markovify.Text(bot.source.content)
         text = chains.make_sentence()
@@ -230,15 +250,15 @@ def create_post():
 
 
 if __name__ == "__main__":
-
+    
     # set debug mode for testing
-    #app.debug = True
+    # app.debug = True
     # make sure templates, etc. are not cached in debug mode
-    #app.jinja_env.auto_reload = app.debug
+    # app.jinja_env.auto_reload = app.debug
 
     connect_to_db(app)
 
     # Use the DebugToolbar
-    #DebugToolbarExtension(app)
+    # DebugToolbarExtension(app)
 
     app.run(port=5000, host='0.0.0.0')
