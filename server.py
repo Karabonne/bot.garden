@@ -43,8 +43,21 @@ def show_bot_page(bot_id):
     """TODO: Shows a bot info page, including posts and creator."""
 
     bot = Bot.query.get(bot_id)
+    posts = bot.posts
 
     return render_template("bot.html",
+                            bot=bot,
+                            posts=posts)
+
+@app.route('/post/<post_id>')
+def show_post_page(post_id):
+    """TODO: Shows a bot info page, including posts and creator."""
+
+    posts = Post.query.filter(Post.post_id == post_id).all()
+    bot = posts[0].bot
+
+    return render_template("bot.html",
+                            posts=posts,
                             bot=bot)
 
 @app.route('/directory')
