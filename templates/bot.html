@@ -1,6 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
+<script>
+$(document).ready(function(){
+  $('.modal').modal();
+});
+</script>
 
+</script>
 <div class="row">
     <div class="col s8 offset-s2">
         <div class="card deep-purple lighten-3 z-depth-2 hoverable">
@@ -21,22 +27,28 @@
     </div>
 </div>
 <div class="row">
-    <div class="col s4 offset-s1">
+    <div class="col s4 m4 l4">
         <form action="/post" method="POST">
             <input type="text" name="bot_id" value="{{ bot.bot_id }}" readonly hidden>
-            <button class="btn waves-effect waves-light deep-purple lighten-3 hoverable" type="submit" name="action">
+            <button class="btn waves-effect waves-light deep-purple lighten-3 hoverable" type="submit" name="listen">
               <span class="fas fa-assistive-listening-systems"></span> listen to the bot
             </button>
         </form>
     </div>
-    <div class="col s4 offset-s3">
+    <div class="col s4 m4 l4">
 <!--         <form action="/post" method="POST"> -->
             <input type="text" name="bot_id" value="{{ bot.bot_id }}" readonly hidden>
-            <button class="btn waves-effect waves-light deep-purple lighten-3 hoverable" type="submit" name="action">
+            <button class="btn waves-effect waves-light deep-purple lighten-3 hoverable" type="submit" name="favorite">
               <span class="fas fa-heart"></span> add to favorites
             </button>
 <!--         </form> -->
     </div>
+    <div class="col s4 m4 l4">
+      <button class="btn waves-effect waves-light deep-purple lighten-3 modal-trigger hoverable" data-target="modal1" name="remove">
+        <span class="fas fa-minus-circle"></span> remove this bot
+      </button>
+    </div>
+
 </div>
             {% for post in bot.posts|reverse %}
             <div class="row">
@@ -49,5 +61,21 @@
             {% endfor %}
     </div>
 </div>
+
+<div id="modal1" class="modal">
+  <div class="modal-content">
+    <h4>pruning the garden</h4>
+    <p>so, the bot isn't working the way you expected - perhaps the icon is bad, maybe it isn't producing the things you desired, or maybe it's just time to trim things. that's okay! just make sure you're 100% on this, as there's no going back. if you're concerned about the bot's posts and want them saved, please <a href="mailto:kara@karabonne.com">mail me</a> <strong>BEFORE</strong> deleting and i'll get ya' a copy of the data.</p>
+  </div>
+  <div class="modal-footer">
+        <form action="/post" method="POST">
+            <input type="text" name="bot_id" value="{{ bot.bot_id }}" readonly hidden>
+            <button class="btn waves-effect waves-light deep-purple lighten-3 hoverable" type="submit" name="delete">
+              yes, remove this bot
+            </button>
+        </form>
+  </div>
+</div>
+
 
 {% endblock %}
