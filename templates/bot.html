@@ -5,7 +5,11 @@ $(document).ready(function(){
   $('.modal').modal();
 });
 </script>
-
+<style type="text/css">
+  .card .card-action {
+  padding: 0px;
+}
+</style>
 <p>
 
 <div class="row">
@@ -70,7 +74,7 @@ $(document).ready(function(){
 
               </div>
             {% endif %}
-            
+
           {% endif %}
         </div>
 
@@ -82,14 +86,19 @@ $(document).ready(function(){
 
 </div>
 
-{% for post in bot.posts|reverse %}
-  <div class="row">
-      <div class="col s12">
-          <div class="card-panel deep-purple lighten-4 hoverable">
-              <span class="fas fa-{{ bot.bot_icon }}"></span> <span class="fas fa-caret-right"></span> {{ post.content }}
-          </div>
+{% for post in posts|reverse %}
+
+    <div class="card-panel deep-purple lighten-4 hoverable">
+      <div class="row">
+        <div class="col s11">
+          <span class="fas fa-{{ bot.bot_icon }}"></span> <span class="fas fa-caret-right"></span> {{ post.content }}
+        </div>
+        <div class="col s1">
+          <a href="/post/{{ post.post_id }}"><span class="fas fa-link"></span></a></span>
+        </div>
       </div>
-  </div>
+    </div>
+
 {% endfor %}
 
 <div id="modal1" class="modal">
